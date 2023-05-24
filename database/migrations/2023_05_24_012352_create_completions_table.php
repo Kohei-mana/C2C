@@ -15,10 +15,12 @@ class CreateCompletionsTable extends Migration
     {
         Schema::create('completions', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('order_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->unsignedInteger('quantity');
-            $table->unsignedInteger('price');
+            $table->unsignedInteger('quantity')->default(0);
+            $table->unsignedInteger('price')->default(0);
         });
     }
 

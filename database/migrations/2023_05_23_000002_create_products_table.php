@@ -15,15 +15,18 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('user_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('name');
+            $table->string('name', 50);
             $table->string('image');
-            $table->unsignedInteger('price');
-            $table->unsignedInteger('inventory');
-            $table->string('product_description');
-            $table->tinyInteger('listing_status')->unsigned();
-            $table->timestamps();
+            $table->unsignedInteger('price')->default(0);
+            $table->unsignedInteger('inventory')->default(0);
+            $table->string('product_description', 1000)->nullable();
+            $table->unsignedTinyInteger('listing_status')->default(0);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

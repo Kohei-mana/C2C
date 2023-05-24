@@ -15,11 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedInteger('sum_quantity');
-            $table->unsignedInteger('sum_price');
-            $table->timestamps();
-            $table->dropColumn('updated_at');
+            $table->unsignedInteger('sum_quantity')->default(0);
+            $table->unsignedInteger('sum_price')->default(0);
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
