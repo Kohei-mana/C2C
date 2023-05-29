@@ -1,5 +1,7 @@
 <?php
 
+// ユーザーモデル/app/User.phpを参照
+use \App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
