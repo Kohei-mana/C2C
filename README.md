@@ -1,4 +1,4 @@
-![Laravel ベストプラクティス]( /images/logo-japanese.png?raw=true )
+![Laravel ベストプラクティス](/images/logo-japanese.png?raw=true)
 
 You might also want to check out the [real-world Laravel example application](https://github.com/alexeymezenin/laravel-realworld-example-app)
 
