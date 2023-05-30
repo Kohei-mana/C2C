@@ -1,7 +1,6 @@
 <?php
 
-// ユーザーモデル/app/User.phpを参照
-use \App\User;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,26 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// 未ログイン時の出品商品一覧画面(メインページ)のルート
 Route::get('/', function () {
     return view('welcome');
 });
 
-//新規ユーザーメール登録画面のルート
-Route::get('/signup/mail', function (){
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//新規ユーザー情報登録画面のルート
-Route::get('/signup/identification', function () {
-
-});
-
-//新規ユーザー登録情報確認画面のルート
-Route::get('/signup/confirmation', function () {
-});
-
-//新規ユーザー登録完了画面ルート
-Route::get('/signup/complete', function () {
-    
-});
+require __DIR__.'/auth.php';
