@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="GET" action="{{ route('register2') }}">
+    <form method="GET" action="{{ route('register3') }}">
         @csrf
 
         <!-- Name -->

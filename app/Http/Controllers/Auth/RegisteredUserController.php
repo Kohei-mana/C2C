@@ -28,6 +28,13 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register2');
     }
+
+    // ここでページ３を追加
+    public function page3(): View
+    {
+        return view('auth.register3');
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -45,9 +52,6 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'postal_code' => '123-1234',
-            'address' => '東京都',
-            'email_verification_status' => '0'
         ]);
 
         
