@@ -5,7 +5,7 @@
         <!-- Name -->
         <div class="mt-4">
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="name" name="name" :value="old('name')" required autocomplete="username" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
@@ -14,11 +14,11 @@
             <x-input-label for="postal-code" :value="__('postal-code')" />
 
             <x-text-input id="postal-code" class="block mt-1 w-full"
-                            type="postal-code"
+                            type="text"
                             name="postal-code"
-                            required autocomplete="new-password" />
+                            required autocomplete="name" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error :messages="$errors->get('postal-code')" class="mt-2" />
         </div>
 
         <!-- Address -->
@@ -26,7 +26,7 @@
             <x-input-label for="address" :value="__('address')" />
 
             <x-text-input id="address" class="block mt-1 w-full"
-                            type="address"
+                            type="text"
                             name="address" required autocomplete="postal-code" />
 
             <x-input-error :messages="$errors->get('address')" class="mt-2" />
@@ -35,9 +35,9 @@
         <div class="flex items-center justify-end mt-4">
 
             <x-primary-button class="ml-4">
-                {{ __('Register') }}
+                {{ __('Next') }}
             </x-primary-button>
-            
+
         </div>
     </form>
 </x-guest-layout>
