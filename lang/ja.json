@@ -20,8 +20,8 @@
     "Register": "登録",
     "Remember me": "このブラウザに認証情報を記憶",
     "Remember Me": "このブラウザに認証情報を記憶",
-    "Forgot your password?": "パスワードを忘れた？",
-    "Forgot Your Password?": "パスワードを忘れた？",
+    "Forgot your password?": "パスワードを忘れた方はこちら",
+    "Forgot Your Password?": "パスワードを忘れた方はこちら",
     "Log in": "ログイン",
     "Login": "ログイン",
     "Log Out": "ログアウト",
@@ -38,7 +38,7 @@
     "Update your account's profile information and email address.": "アカウント情報とメールアドレスを更新できます",
     "Your email address is unverified.": "メールアドレスが未確認です",
     "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.": "ご登録頂きありがとうございます。メールアドレス確認のリンクを送付しましたので、メールに記載のリンクをクリックしてください。メールが届いていない場合には、再送も可能です",
-    "A new verification link has been sent to the email address you provided during registration.": "ユーザ登録時に入力頂いたメールアドレス宛にメールアドレス確認リンクを再送しました",
+    "A new verification link has been sent to the email address you provided during .": "ユーザ登録時に入力頂いたメールアドレス宛にメールアドレス確認リンクを再送しました",
     "Resend Verification Email": "メールアドレス確認リンクの再送",
     "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "パスワードをお忘れですか？ご登録時のメールアドレスを入力頂ければ、パスワードリセットのためのリンクをメールで送信いたします",
     "Email Password Reset Link": "パスワードリセットメールを送信",
@@ -132,5 +132,9 @@
     "You may accept this invitation by clicking the button below:": "下記のボタンをクリックしてチームへの招待を承認できます",
     "Accept Invitation": "この招待を承認",
     "If you did not expect to receive an invitation to this team, you may discard this email.": "このチームへの招待を受けていない場合には、本メールは破棄してください",
-    "Regards": "よろしくお願い申し上げます"
+    "Regards": "よろしくお願い申し上げます",
+
+    "postal-code": "郵便番号",
+    "address": "住所",
+    "Next": "次へ"
 }
