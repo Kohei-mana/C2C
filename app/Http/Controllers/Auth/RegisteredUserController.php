@@ -40,6 +40,9 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'postal_code' => '123-1234',
+            'address' => '東京都',
+            'email_verification_status' => '0'
         ]);
 
         
