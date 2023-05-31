@@ -15,6 +15,10 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
+    // ここでページ２を追加
+    Route::get('register2', [RegisteredUserController::class, 'page2'])
+    ->name('register2');
+
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
