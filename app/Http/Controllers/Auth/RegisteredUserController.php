@@ -25,6 +25,7 @@ class RegisteredUserController extends Controller
 
     public function userdataPage(Request $request): View
     {
+        // FIXME セッション使って書き直しましょう
         $email = $request->email;
         $password = $request->password;
         $password_confirmation = $request->password_confirmation;
