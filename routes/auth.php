@@ -16,8 +16,14 @@ Route::middleware('guest')->group(function () {
                 ->name('register');
 
     // ここでページ２を追加
-    Route::get('register2', [RegisteredUserController::class, 'page2'])
-    ->name('register2');
+    Route::get('userdata', [RegisteredUserController::class, 'page2'])
+                ->name('userdata');
+
+    Route::get('confirm-userdata', [RegisteredUserController::class, 'page3'])
+                ->name('confirm');
+
+    Route::get('complete', [RegisteredUserController::class, 'page4'])
+                ->name('complete');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 

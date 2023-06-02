@@ -26,7 +26,17 @@ class RegisteredUserController extends Controller
     // ここでページ２を追加
     public function page2(): View
     {
-        return view('auth.register2');
+        return view('auth.userdata');
+    }
+
+    public function page3(): View
+    {
+        return view('auth.confirm-userdata');
+    }
+
+    public function page4(): View
+    {
+        return view('auth.complete');
     }
     /**
      * Handle an incoming registration request.
