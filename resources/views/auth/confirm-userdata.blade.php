@@ -3,7 +3,6 @@
         @csrf
 
         
-
         <div class="flex items-center justify-end mt-4">
             <x-primary-button class="ml-4">
                 {{ __('BACK') }}

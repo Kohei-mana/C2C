@@ -18,9 +18,13 @@ Route::middleware('guest')->group(function () {
     // ここでページ２を追加
     Route::get('userdata', [RegisteredUserController::class, 'page2'])
                 ->name('userdata');
+    
+    Route::post('userdata', [RegisteredUserController::class, 'store']);
 
     Route::get('confirm-userdata', [RegisteredUserController::class, 'page3'])
                 ->name('confirm');
+        
+    Route::post('userdata', [RegisteredUserController::class, 'show']);
 
     Route::get('complete', [RegisteredUserController::class, 'page4'])
                 ->name('complete');

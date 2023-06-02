@@ -34,6 +34,17 @@ class RegisteredUserController extends Controller
         return view('auth.confirm-userdata');
     }
 
+    public function show(Request $request, string $id): View
+    {
+        $value = $request->session()->all();
+
+        // ...
+
+        $user = $this->users->find($id);
+
+        return view('auth.confirm-userdata', ['user' => $user]);
+    }
+
     public function page4(): View
     {
         return view('auth.complete');
@@ -46,20 +57,18 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => 'manabe',
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'postal_code' => '123-1234',
             'address' => '東京都',
             'email_verification_status' => '0'
         ]);
-
         
 
         return redirect(RouteServiceProvider::HOME);
