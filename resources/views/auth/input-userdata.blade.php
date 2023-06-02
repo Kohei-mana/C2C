@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('confirm-userdata') }}">
+    <form method="POST" action="{{ route('register.confirm-userdata') }}">
         @csrf
 
         <!-- Name -->
@@ -39,10 +39,6 @@
             </x-primary-button>
 
         </div>
-
-        <input type="hidden" name="email" value="{{ $email }}">
-        <input type="hidden" name="password" value="{{ $password }}">
-        <input type="hidden" name="password_confirmation" value="{{ $password_confirmation }}">
         
     </form>
 </x-guest-layout>

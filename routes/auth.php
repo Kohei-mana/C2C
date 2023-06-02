@@ -16,15 +16,16 @@ Route::middleware('guest')->group(function () {
         ->name('register');
 
     Route::post('input-userdata', [RegisteredUserController::class, 'userdataPage'])
-        ->name('input-userdata');
+        ->name('register.input-userdata');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'store'])
+        ->name('register.store');
 
     Route::post('confirm-userdata', [RegisteredUserController::class, 'confirmUserdataPage'])
-        ->name('confirm-userdata');
+        ->name('register.confirm-userdata');
 
-    Route::get('complete', [RegisteredUserController::class, 'page4'])
-        ->name('complete');
+    Route::get('complete', [RegisteredUserController::class, 'completePage'])
+        ->name('register.complete');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
