@@ -23,32 +23,33 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    // ここでページ２を追加
-    public function page2(): View
+    public function userdataPage(Request $request): View
     {
-        return view('auth.userdata');
+        $email = $request->email;
+        $password = $request->password;
+        $password_confirmation = $request->password_confirmation;
+
+        return view('auth.input-userdata', compact('email', 'password', 'password_confirmation'));
     }
 
-    public function page3(): View
+    public function confirmUserdataPage(Request $request): View
     {
-        return view('auth.confirm-userdata');
-    }
+        $email = $request->email;
+        $password = $request->password;
+        $name = $request->name;
+        $postal_code = $request->postal_code;
+        $address = $request->address;
+        $password_confirmation = $request->password_confirmation;
 
-    public function show(Request $request, string $id): View
-    {
-        $value = $request->session()->all();
-
-        // ...
-
-        $user = $this->users->find($id);
-
-        return view('auth.confirm-userdata', ['user' => $user]);
+        // FIXME: 規約違反
+        return view('auth.confirm-userdata', compact('email', 'password', 'name', 'postal_code', 'address', 'password_confirmation'));
     }
 
     public function page4(): View
     {
         return view('auth.complete');
     }
+
     /**
      * Handle an incoming registration request.
      *
@@ -57,20 +58,22 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:8'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'address' => ['required', 'string', 'max:255'],
         ]);
 
         $user = User::create([
-            'name' => 'manabe',
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'postal_code' => '123-1234',
-            'address' => '東京都',
+            'postal_code' => $request->postal_code,
+            'address' => $request->address,
             'email_verification_status' => '0'
         ]);
-        
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('complete');
     }
 }

@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="GET" action="{{ route('userdata') }}">
+    <form method="POST" action="{{ route('input-userdata') }}">
         @csrf
 
         <!-- Email Address -->
