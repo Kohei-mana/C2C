@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="GET" action="{{ route('confirm') }}">
+    <form method="POST" action="{{ route('register.confirm-userdata') }}">
         @csrf
 
         <!-- Name -->
@@ -11,14 +11,14 @@
 
         <!-- Postal-code -->
         <div class="mt-4">
-            <x-input-label for="postal-code" :value="__('postal-code')" />
+            <x-input-label for="postal_code" :value="__('postal-code')" />
 
-            <x-text-input id="postal-code" class="block mt-1 w-full"
+            <x-text-input id="postal_code" class="block mt-1 w-full"
                             type="text"
-                            name="postal-code"
+                            name="postal_code"
                             required autocomplete="name" />
 
-            <x-input-error :messages="$errors->get('postal-code')" class="mt-2" />
+            <x-input-error :messages="$errors->get('postal_code')" class="mt-2" />
         </div>
 
         <!-- Address -->
@@ -27,7 +27,7 @@
 
             <x-text-input id="address" class="block mt-1 w-full"
                             type="text"
-                            name="address" required autocomplete="postal-code" />
+                            name="address" required autocomplete="postal_code" />
 
             <x-input-error :messages="$errors->get('address')" class="mt-2" />
         </div>
@@ -39,5 +39,6 @@
             </x-primary-button>
 
         </div>
+        
     </form>
 </x-guest-layout>

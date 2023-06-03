@@ -23,32 +23,55 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    // ここでページ２を追加
-    public function page2(): View
+    public function userdataPage(Request $request): View
     {
-        return view('auth.userdata');
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $email = $request->email;
+        $password = $request->password;
+        $password_confirmation = $request->password_confirmation;
+
+        $data = compact('email', 'password', 'password_confirmation');
+        session($data);
+
+        return view('auth.input-userdata', $data);
     }
 
-    public function page3(): View
+    public function confirmUserdataPage(Request $request): View
     {
-        return view('auth.confirm-userdata');
+        $session = $request->session()->all();
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:8'],
+            'address' => ['required', 'string', 'max:255'],
+        ]);
+
+        $email = $session['email'];
+
+        $name = $request->name;
+        $postal_code = $request->postal_code;
+        $address = $request->address;
+
+        $data = compact('email',
+            'name',
+            'postal_code',
+            'address',
+        );
+
+        session($data);
+
+        return view('auth.confirm-userdata', $data);
     }
 
-    public function show(Request $request, string $id): View
-    {
-        $value = $request->session()->all();
-
-        // ...
-
-        $user = $this->users->find($id);
-
-        return view('auth.confirm-userdata', ['user' => $user]);
-    }
-
-    public function page4(): View
+    public function completePage(): View
     {
         return view('auth.complete');
     }
+
     /**
      * Handle an incoming registration request.
      *
@@ -56,21 +79,19 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $data = $request->session()->all();
 
         $user = User::create([
-            'name' => 'manabe',
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'postal_code' => '123-1234',
-            'address' => '東京都',
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'postal_code' => $data['postal_code'],
+            'address' => $data['address'],
             'email_verification_status' => '0'
         ]);
-        
 
-        return redirect(RouteServiceProvider::HOME);
+        $request->session()->flush();
+
+        return redirect()->route('register.complete');
     }
 }
