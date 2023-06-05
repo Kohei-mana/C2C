@@ -92,6 +92,8 @@ class RegisteredUserController extends Controller
 
         $request->session()->flush();
 
+        event(new Registered($user));
+
         return redirect()->route('register.complete');
     }
 }
