@@ -56,7 +56,8 @@ class RegisteredUserController extends Controller
         $postal_code = $request->postal_code;
         $address = $request->address;
 
-        $data = compact('email',
+        $data = compact(
+            'email',
             'name',
             'postal_code',
             'address',

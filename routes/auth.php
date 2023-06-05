@@ -21,6 +21,9 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [RegisteredUserController::class, 'store'])
         ->name('register.store');
 
+    // Route::get('register', [RegisteredUserController::class, 'back'])
+    //     ->name('register.back');
+
     Route::post('confirm-userdata', [RegisteredUserController::class, 'confirmUserdataPage'])
         ->name('register.confirm-userdata');
 
