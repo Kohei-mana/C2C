@@ -88,7 +88,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($data['password']),
             'postal_code' => $data['postal_code'],
             'address' => $data['address'],
-            'email_verification_status' => '0'
+            'email_verified_at' => '0'
         ]);
 
         $request->session()->flush();
