@@ -73,6 +73,11 @@ class RegisteredUserController extends Controller
         return view('auth.complete');
     }
 
+    public function sendedEmailPage(): View
+    {
+        return view('auth.sended-email');
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -88,13 +93,15 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($data['password']),
             'postal_code' => $data['postal_code'],
             'address' => $data['address'],
+            //名前変える　email_verified_at
             'email_verification_status' => '0'
+            //rememberTokenを追加する
         ]);
 
         $request->session()->flush();
 
         event(new Registered($user));
 
-        return redirect()->route('register.complete');
+        return redirect()->route('register.sended-email');
     }
 }

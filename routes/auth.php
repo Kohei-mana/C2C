@@ -27,6 +27,10 @@ Route::middleware('guest')->group(function () {
     Route::post('confirm-userdata', [RegisteredUserController::class, 'confirmUserdataPage'])
         ->name('register.confirm-userdata');
 
+    //メール送信完了画面の追加
+    Route::get('sended-email', [RegisteredUserController::class, 'sendedEmailPage'])
+        ->name('register.sended-email');
+
     Route::get('complete', [RegisteredUserController::class, 'completePage'])
         ->name('register.complete');
 
