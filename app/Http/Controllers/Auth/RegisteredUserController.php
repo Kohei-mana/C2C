@@ -93,9 +93,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($data['password']),
             'postal_code' => $data['postal_code'],
             'address' => $data['address'],
-            //名前変える　email_verified_at
-            'email_verification_status' => '0'
-            //rememberTokenを追加する
+            'email_verified_at' => '0'
         ]);
 
         $request->session()->flush();
