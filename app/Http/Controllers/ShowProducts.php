@@ -13,7 +13,8 @@ class ShowProducts extends Controller
     public function show(): View
     {
 
-        $products = DB::select('select * from products');
+        $products = array_reverse(DB::select('select * from products'));
+
 
         return view('welcome', compact('products'));
     }

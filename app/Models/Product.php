@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -11,11 +12,17 @@ class Product extends Model
 
     protected $fillable = [
         'name', 
-        // 'image', 
-        'price', 
-        // 'inventory', 
-        // 'product_description', 
-        // 'created_at', 
-        // 'updated_at'
+        'price'
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getCategoryName()
+    {
+        $categoryName = $this->category->name;
+        return $categoryName;
+    }
 }
