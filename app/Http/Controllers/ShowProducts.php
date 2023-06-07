@@ -15,22 +15,6 @@ class ShowProducts extends Controller
 
         $products = DB::select('select * from products');
 
-        foreach($products as $product) {
-
-        };
-
-        $name = $product->name;
-        $image = $product->image;
-        $price = $product->price;
-
-
-        $data = compact(
-            'name', 
-            'image',
-            'price'
-        );
-        // $data = ['title' => '商品', 'products' => $products];
-
-        return view('welcome', $data);
+        return view('welcome', compact('products'));
     }
 }
