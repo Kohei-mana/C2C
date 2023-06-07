@@ -17,7 +17,8 @@ return new class extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('name', 50); $table->string('image');
+            $table->string('name', 50); 
+            $table->string('image');
             $table->unsignedInteger('price')->default(0);
             $table->unsignedInteger('inventory')->default(0);
             $table->string('product_description', 1000)->nullable();
