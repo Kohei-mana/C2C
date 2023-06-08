@@ -19,10 +19,24 @@ class ShowProducts extends Controller
         $products = DB::table('products')
             ->select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'categories.category_name as category_name')
             ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->get();
+            ->simplePaginate(2);
+
         // $products = array_reverse(DB::select('select * from products'));
 
 
         return view('welcome', compact('products'));
+    }
+
+    public function showDetail(): View
+    {
+        $products = DB::table('products')
+        ->select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'products.product_description', 'categories.category_name as category_name')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->get();
+
+        foreach($products as $product){
+        }
+
+        return View('product-detail', compact('product'));
     }
 }
