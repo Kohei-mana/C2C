@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ShowProducts::class, 'show']);
 
-Route::get('/product-detail', [ShowProducts::class, 'showDetail'])
+Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
     ->name('product-detail');
 
 Route::get('/dashboard', function () {
