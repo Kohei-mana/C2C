@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/favorite', function () {
+        return view('favorite');
+    })->name('favorite');
+    Route::get('/listing_history', function () {
+        return view('listing_history');
+    })->name('listing_history');
+    Route::get('/purchase_history', function () {
+        return view('purchase_history');
+    })->name('purchase_history');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
