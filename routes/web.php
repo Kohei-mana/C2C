@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ExhibitController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase_history', function () {
         return view('purchase_history');
     })->name('purchase_history');
+    Route::get('/exhibit', [ExhibitController::class, 'create'])->name('exhibit');
+    Route::post('/confirm-exhibit', [ExhibitController::class, 'confirmExhibitPage'])->name('confirm-exhibit');
+    Route::post('/complete-exhibit', [ExhibitUserController::class, 'store'])->name('complete-exhibit');
 });
 
 require __DIR__ . '/auth.php';
