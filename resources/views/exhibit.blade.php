@@ -1,21 +1,22 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('confirm-exhibit') }}" enctype="multipart/form-data">
+<x-app-layout>
+    <form method="POST" action="{{ route('confirm-exhibit') }}" enctype="multipart/form-data" style="width: 50%;" class="max-w-sm mx-auto">
         @csrf
 
         <!-- name -->
         <div class="mt-4">
             <x-input-label for="name" :value="__('商品名')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autocomplete="name" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Category_id -->
         <div class="mt-4">
-            <x-input-label for="category_id" :value="__('カテゴリ名')" />
-
-            <x-text-input id="category_id" class="block mt-1 w-full" type="number" min="1" name="category_id" required autocomplete="category_id" />
-
-            <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+            <x-input-label for="category_id" :value="__('カテゴリ')" />
+            <select id="category-id" name="category_id" class="block mt-1 w-full">
+                @foreach ($categories as $id => $category_name)
+                <option value="{{ $id }}">{{ $category_name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <!-- Price -->
@@ -33,16 +34,16 @@
         </div>
 
         <!-- description -->
-        <div class="mt-4">
+        <div class="mt-4" style="height: 200px;">
             <x-input-label for="description" :value="__('商品説明')" />
-            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" autocomplete="description" />
+            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" autocomplete="description" wrap="hard" />
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
         </div>
 
         <!-- image -->
         <div class="mt-4">
             <x-input-label for="image" :value="__('商品画像')" />
-            <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" required autocomplete="image" />
+            <x-text-input id="image" class="block mt-1" type="file" name="image" required autocomplete="image" />
             <x-input-error :messages="$errors->get('image')" class="mt-2" />
         </div>
 
@@ -56,4 +57,4 @@
         </div>
 
     </form>
-</x-guest-layout>
+</x-app-layout>

@@ -37,9 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase_history', function () {
         return view('purchase_history');
     })->name('purchase_history');
-    Route::get('/exhibit', [ExhibitController::class, 'create'])->name('exhibit');
+    Route::get('/exhibit', [ExhibitController::class, 'exhibitPage'])->name('exhibit');
     Route::post('/confirm-exhibit', [ExhibitController::class, 'confirmExhibitPage'])->name('confirm-exhibit');
-    Route::post('/complete-exhibit', [ExhibitUserController::class, 'store'])->name('complete-exhibit');
+    Route::get('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
 });
 
 require __DIR__ . '/auth.php';

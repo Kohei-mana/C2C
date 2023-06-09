@@ -1,5 +1,5 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('complete-exhibit') }}">
+<x-app-layout>
+    <form method="GET" action="{{ route('complete-exhibit') }}" style="width: 50%;" class="max-w-sm mx-auto">
         @csrf
 
         <div class="border-2 border-black">
@@ -9,27 +9,27 @@
             </div>
 
             <div class="border-b-2 border-black h-8">
-                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('カテゴリ名') }}</p>
-                <p class="py-1 text-center">{{ $category_id }}</p>
+                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('カテゴリ') }}</p>
+                <p class="py-1 text-center">{{ $category_name }}</p>
             </div>
 
             <div class="border-b-2 border-black h-8">
                 <p class='inline-block w-1/4 font-normal h-8 w-30 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('価格') }}</p>
-                <p class=" py-1 text-center">{{ $price }}</p>
-            </div>
-
-            <div class="border-black h-8">
-                <p class='inline-block w-1/4 font-normal h-8 w-30 float-left border-r-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('在庫数') }}</p>
-                <p class=" py-1 text-center">{{ $inventory }}</p>
-            </div>
-
-            <div class="border-black h-8">
-                <p class='inline-block w-1/4 font-normal h-8 w-30 float-left border-r-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('商品説明') }}</p>
-                <p class=" py-1 text-center">{{ $description }}</p>
+                <p class=" py-1 text-center">¥{{ $price }}</p>
             </div>
 
             <div class="border-b-2 border-black h-8">
-                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('商品画像') }}</p>
+                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('在庫数') }}</p>
+                <p class=" py-1 text-center">{{ $inventory }}点</p>
+            </div>
+
+            <div class="border-b-2 border-black h-8">
+                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('商品説明') }}</p>
+                <p class=" py-1 text-center">{{ $description }}</p>
+            </div>
+
+            <div class="border-black h-8">
+                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('商品画像') }}</p>
                 <p class="py-1 text-center">{{ $image }}</p>
             </div>
         </div>
@@ -45,4 +45,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-app-layout>
