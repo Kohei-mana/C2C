@@ -1,6 +1,5 @@
 <x-app-layout>
-    <form method="GET" action="{{ route('profile.edit') }}" style="width: 50%;" class="max-w-sm mx-auto">
-        @csrf
+    <table class="max-w-sm mx-auto">
         <h2 class="mb-4 text-sm text-gray-600">
             {{ __('THANK YOU') }}<br>
             {{ __('出品が完了しました') }}
@@ -12,5 +11,5 @@
                 {{ __('ホームに戻る') }}
             </x-primary-button>
         </div>
-    </form>
+    </table>
 </x-app-layout>

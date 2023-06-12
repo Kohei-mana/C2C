@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ExhibitController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,10 @@ Route::middleware('auth')->group(function () {
         return view('favorite');
     })->name('favorite');
     Route::get('/listing_history', function () {
-        return view('listing_history');
+        $exhibit_products = Product::where('user_id', Auth::id())->orderBy('created_at', 'asc')->get();
+        return view('listing_history', compact('exhibit_products'));
     })->name('listing_history');
+    Route::get('/exhibition-product/{id}', [ExhibitController::class, 'show'])->name('exhibition-product');
     Route::get('/purchase_history', function () {
         return view('purchase_history');
     })->name('purchase_history');

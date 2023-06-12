@@ -28,7 +28,7 @@ class ExhibitController extends Controller
     public function confirmExhibitPage(Request $request): View
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:40'],
+            'product_name' => ['required', 'string', 'max:40'],
             'category_id' => ['required'],
             'price' => ['required', 'integer', 'min:300', 'max:9999999'],
             'inventory' => ['required', 'integer', 'min:1'],
@@ -36,19 +36,19 @@ class ExhibitController extends Controller
             'image' => ['required']
         ]);
 
-        $name = $request->name;
+        $product_name = $request->product_name;
         $category_id = $request->category_id;
         $category_name = DB::table('categories')
-            ->select('category_name')
             ->where('id', $category_id)
-            ->get();
-
+            ->value('category_name');
         $price = $request->price;
         $inventory = $request->inventory;
         $description = $request->description;
-        $image = $request->file("image")->getClientOriginalName();
+        $image = $request->file("image");
+        $filename = $image->getClientOriginalName();
+        $move = $image->move('./upload/', $filename);
 
-        $data = compact('name', 'category_id', 'price', 'inventory', 'description', 'image', 'category_name');
+        $data = compact('product_name', 'category_id', 'price', 'inventory', 'description', 'filename', 'category_name');
         session($data);
 
         return view('confirm-exhibit', $data);
@@ -59,8 +59,8 @@ class ExhibitController extends Controller
         $data = $request->session()->all();
 
         $product = Product::create([
-            'name' => $data['name'],
-            'image' => $data['image'],
+            'name' => $data['product_name'],
+            'image' => $data['filename'],
             'category_id' => $data['category_id'],
             'user_id'  => Auth::id(),
             'price' => $data['price'],
@@ -74,5 +74,12 @@ class ExhibitController extends Controller
         event(new Exhibit($product));
 
         return view('complete-exhibit');
+    }
+
+    public function show($id)
+    {
+        $product = Product::find($id);
+
+        return view('exhibition-product', compact('product'));
     }
 }

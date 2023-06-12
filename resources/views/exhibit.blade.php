@@ -4,15 +4,15 @@
 
         <!-- name -->
         <div class="mt-4">
-            <x-input-label for="name" :value="__('商品名')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="product_name" :value="__('商品名')" />
+            <x-text-input id="product_name" class="block mt-1 w-full" type="text" name="product_name" required />
+            <x-input-error :messages="$errors->get('product_name')" class="mt-2" />
         </div>
 
         <!-- Category_id -->
         <div class="mt-4">
             <x-input-label for="category_id" :value="__('カテゴリ')" />
-            <select id="category-id" name="category_id" class="block mt-1 w-full">
+            <select id="category-id" name="category_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                 @foreach ($categories as $id => $category_name)
                 <option value="{{ $id }}">{{ $category_name }}</option>
                 @endforeach
