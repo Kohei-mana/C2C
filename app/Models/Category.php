@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany as RelationsHasMany;
 class Category extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
 
     public function products(): HasMany
