@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ShowProducts::class, 'show']);
+Route::get('/', [ShowProducts::class, 'show'])
+    ->name('home');
+
+Route::get('/', [ShowProducts::class, 'search'])
+    ->name('search-product');
 
 Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
     ->name('product-detail');

@@ -7,23 +7,33 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
+
 // use app/Models/Category.php;
 
 class ShowProducts extends Controller
 {
     //
-    public function show(): View
+    public function show(Request $request): View
     {
+        $products = Product::all();
 
         $products = DB::table('products')
             ->select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'categories.category_name as category_name')
             ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->simplePaginate(2);
+            ->paginate(2);
+        
+        $categories = DB::table('categories')
+        ->select('id', 'category_name')
+        ->get();
 
-        // $products = array_reverse(DB::select('select * from products'));
+        $searchWord = $request->searchWord;
+        $categoryId = $request->categoryId;
 
 
-        return view('welcome', compact('products'));
+        return View('welcome', compact('products', 'categories', 'searchWord', 'categoryId'));
+
     }
 
     public function showDetail($id): View
@@ -37,14 +47,35 @@ class ShowProducts extends Controller
         ->where('products.id', $id)
         ->first();
 
-        // $products = DB::table('products')
-        // ->select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'products.product_description', 'categories.category_name as category_name')
-        // ->join('categories', 'products.category_id', '=', 'categories.id')
-        // ->get();
-
-        // foreach($products as $product){
-        // }
-
         return View('product-detail', compact('product'));
     }
+
+    public function search(Request $request): View
+    {
+
+        $searchWord = $request->searchWord;
+        $categoryId = $request->categoryId;
+
+        $categories = DB::table('categories')
+        ->select('id', 'category_name')
+        ->get();
+        
+        $searchQueryBuilder = DB::table('products')
+        ->select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'category_id', 'categories.category_name as category_name')
+        ->join('categories', 'products.category_id', '=', 'categories.id');
+
+        if (isset($searchWord)) {
+            $searchQueryBuilder->where('products.name', 'like', '%' . $searchWord . '%');
+        }
+
+        if (isset($categoryId)) {
+            $searchQueryBuilder->where('products.category_id', $categoryId);
+        }
+        
+        $products = $searchQueryBuilder->simplePaginate(2);
+        
+        return view('welcome', compact('products', 'categories', 'searchWord', 'categoryId'));
+
+    }
+
 }

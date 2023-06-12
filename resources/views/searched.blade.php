@@ -16,37 +16,43 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative md:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-
-            <div class="md:fixed md:top-0 md:left-0 p-6 text-right w-full flex">
+        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                 <!--検索フォーム-->
-                <div class="md:left-0">
+                <div class="row">
+                    <div class="col-sm">
                     <form method="GET" action="{{ route('search-product')}}">
+                        <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">商品名</label>
                         <!--入力-->
-                        <div class="border-2">
-                            <input type="text" class="form-control" name="searchWord" placeholder="商品名" value="{{ $searchWord }}">
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="searchWord" value="{{ $searchWord }}">
                         </div>
-                          
+                        <div class="col-sm-auto">
+                            <button type="submit" class="btn btn-primary ">検索</button>
+                        </div>
+                        </div>     
                         <!-- プルダウンカテゴリ選択 -->
-                        <div class="form-group row bg-gray">
-                            <div class="col-sm-3">
-                                <select name="categoryId" class="form-control bg-gray" value="{{ $categoryId }}">
-                                    <option value="">未選択</option>
+                        <div class="form-group row">
+                        <label class="col-sm-2">商品カテゴリ</label>
+                        <div class="col-sm-3">
+                            <select name="categoryId" class="form-control" value="{{ $categoryId }}">
+                            <option value="">未選択</option>
 
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">
-                                            {{ $category->category_name }}
-                                        </option>  
-                                    @endforeach
-                                </select>
-                            </div>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">
+                                    {{ $category->category_name }}
+                                </option> 
+                            @endforeach
+                            </select>
                         </div>
-
-                        <button type="submit" class="btn btn-primary border-4">検索</button>
+                        </div>
                     </form>
+                    </div>
                 </div>
-                @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right w-10%">
+            </div>
+            @if (Route::has('login'))
+                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                     @else
@@ -58,8 +64,6 @@
                     @endauth
                 </div>
             @endif
-            </div>
-            
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex justify-center">
@@ -83,13 +87,11 @@
                     </div>
                 </div>
 
-                
-
                 <div class="flex justify-center mt-16 px-0 sm:items-center">
 
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            {{ $products->appends(request()->query())->links() }}
+                            {{ $products->links() }}
                         </div>
                     </div>
 
