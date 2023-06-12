@@ -13,9 +13,17 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function products(): HasMany 
+    public $timestamps = false;
+
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
-    
+
+    public function getLists()
+    {
+        $categories = Category::orderBy('id', 'asc')->pluck('category_name', 'id');
+
+        return $categories;
+    }
 }
