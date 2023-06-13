@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShowProducts;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ExhibitController;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,10 @@ Route::get('/', [ShowProducts::class, 'search'])
 Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
     ->name('product-detail');
 
+// いいねボタン
+Route::get('/pruduct-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
+Route::get('/community/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['verified'])->name('dashboard');
@@ -36,9 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/favorite', function () {
-        return view('favorite');
-    })->name('favorite');
+    Route::get('/favorite', [FavoriteController::class, 'showFavoriteProducts'])
+        ->name('favorite');
     Route::get('/listing_history', function () {
         $exhibit_products = Product::where('user_id', Auth::id())->orderBy('created_at', 'asc')->get();
         return view('listing_history', compact('exhibit_products'));
