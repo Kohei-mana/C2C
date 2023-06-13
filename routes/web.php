@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
         return view('listing_history', compact('exhibit_products'));
     })->name('listing_history');
     Route::get('/exhibition-product/{id}', [ExhibitController::class, 'show'])->name('exhibition-product');
+
+    Route::post('/exhibition-product/{id}', [ExhibitController::class, 'stopListing'])->name('stopListing');
+
     Route::get('/purchase_history', function () {
         return view('purchase_history');
     })->name('purchase_history');

@@ -82,4 +82,13 @@ class ExhibitController extends Controller
 
         return view('exhibition-product', compact('product'));
     }
+
+    public function stopListing($id)
+    {
+        $product = Product::find($id);
+        $product->listing_status = 1;
+        $product->save();
+
+        return redirect('exhibition-product/{id}');
+    }
 }

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <table class="max-w-sm mx-auto">
+    <table style="width: 50%;" class="max-w-md mx-auto">
         <h2 class="mb-4 text-sm text-gray-600">
             {{ __('THANK YOU') }}<br>
             {{ __('出品が完了しました') }}
