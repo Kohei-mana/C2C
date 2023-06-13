@@ -27,15 +27,13 @@ Route::get('/', [ShowProducts::class, 'search'])
     ->name('search-product');
 
 Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
-    ->name('product-detail');
+->name('product-detail');
 
-// いいねボタン
-Route::get('/pruduct-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
-Route::get('/community/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -54,6 +52,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/exhibit', [ExhibitController::class, 'exhibitPage'])->name('exhibit');
     Route::post('/confirm-exhibit', [ExhibitController::class, 'confirmExhibitPage'])->name('confirm-exhibit');
     Route::get('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
+
+    // Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+    // ->name('product-detail');
+
+    // // いいねボタン
+    Route::get('/pruduct-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
+    Route::get('/community/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+})->middleware(['verified'])->name('dashboard');
+
 });
 
 require __DIR__ . '/auth.php';
