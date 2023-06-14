@@ -17,6 +17,7 @@ class FavoriteController extends Controller
         $favorite->user_id=Auth::user()->id;
         $favorite->timestamps = false;
         $favorite->save();
+        dd($favorite);
         return back();
     }
 

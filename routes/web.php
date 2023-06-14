@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShowProducts;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ExhibitController;
+use App\Http\Controllers\PurchaseController;
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
@@ -53,16 +54,26 @@ Route::middleware('auth')->group(function () {
     Route::post('/confirm-exhibit', [ExhibitController::class, 'confirmExhibitPage'])->name('confirm-exhibit');
     Route::get('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
 
-    // Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
-    // ->name('product-detail');
 
-    // // いいねボタン
-    Route::get('/pruduct-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
-    Route::get('/community/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
+    // // いいね
+    Route::get('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
+    Route::get('/product-detail/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
+
+    //カートに追加
+    Route::get('/product-detail//{product}', [PurchaseController::class, 'addToCart'])
+    ->name('add_to_cart');
+
+    //カートに移動
+    Route::get('/shopping_cart', [PurchaseController::class, 'shoppingCartPage'])
+    ->name('shopping_cart');
+    //カートから削除
+    Route::get('/shopping_cart/deleted/', [PurchaseController::class, 'removeFromCart'])
+    ->name('remove_from_cart');
+
 
     Route::get('/dashboard', function () {
         return view('dashboard');
-})->middleware(['verified'])->name('dashboard');
+    })->middleware(['verified'])->name('dashboard');
 
 });
 

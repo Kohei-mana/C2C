@@ -10,32 +10,38 @@
                     <div>{{ $product->price }}</div>
                     <div>{{ $product->product_description }}</div>
                 </div>
-                <form action="">
+                <form method="GET" action="{{ route('add_to_cart', $product->id) }}">
                     <p>数量</p>
-                    <input type="number" min=1 max='{{ $product->inventory }}'>
+                    <input type="number" name="quantity" value=1 min=1 max='{{ $product->inventory }}'>
+
+                    <div>
+                    <span>
+                        @guest
+                            <x-secondary-button>{{ __('カートに追加') }}</x-secondary-button>
+
+                            <a href="{{ route('addfavorite', $product->id) }}" class="btn btn-secondary btn-sm height-30">
+                                <img src="{{asset('img/notnice.png')}}" height="30px" width="30px">
+                            </a>
+                        @endguest   
+                        
+                        <!-- ユーザーが「いいね」をしていたら -->
+                        @auth
+                            <x-primary-button>{{ __('カートに追加') }}</x-primary-button>
+                            @if($favorite)
+                            <a href="{{ route('notfavorite', $product->id) }}" class="btn btn-success btn-sm">
+                                <img src="{{asset('img/nicebutton.png')}}" height="30px" width="30px">
+                            </a>
+                            @else
+                            <a href="{{ route('addfavorite', $product->id) }}" class="btn btn-secondary btn-sm height-30">
+                                <img src="{{asset('img/notnice.png')}}" height="30px" width="30px">
+                            </a>
+                            @endif
+                        @endauth
+                    </span>
+                    </div>
+
                 </form>
-                <div>
-                <span>
-                    @guest
-                        <a href="{{ route('addfavorite', $product->id) }}" class="btn btn-secondary btn-sm height-30">
-                            <img src="{{asset('img/notnice.png')}}" height="30px" width="30px">
-                        </a>
-                    @endguest   
-                    
-                    <!-- ユーザーが「いいね」をしていたら -->
-                    @auth
-                        @if($favorite)
-                        <a href="{{ route('notfavorite', $product->id) }}" class="btn btn-success btn-sm">
-                            <img src="{{asset('img/nicebutton.png')}}" height="30px" width="30px">
-                        </a>
-                        @else
-                        <a href="{{ route('addfavorite', $product->id) }}" class="btn btn-secondary btn-sm height-30">
-                            <img src="{{asset('img/notnice.png')}}" height="30px" width="30px">
-                        </a>
-                        @endif
-                    @endauth
-                </span>
-                </div>
+                
             </div>
         </div>
     </div>
