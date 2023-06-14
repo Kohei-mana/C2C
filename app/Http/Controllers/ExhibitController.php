@@ -5,14 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
-use App\Providers\RouteServiceProvider;
 use App\Events\Exhibit;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 
@@ -76,6 +71,13 @@ class ExhibitController extends Controller
         return view('complete-exhibit');
     }
 
+    public function showHistory()
+    {
+        $exhibit_products = Product::where('user_id', Auth::id())->orderBy('created_at', 'asc')->get();
+
+        return view('listing_history', compact('exhibit_products'));
+    }
+
     public function show($id)
     {
         $product = Product::find($id);
@@ -89,6 +91,15 @@ class ExhibitController extends Controller
         $product->listing_status = 1;
         $product->save();
 
-        return redirect('exhibition-product/{id}');
+        return view('exhibition-product', compact('product'));
+    }
+
+    public function resumeListing($id)
+    {
+        $product = Product::find($id);
+        $product->listing_status = 0;
+        $product->save();
+
+        return view('exhibition-product', compact('product'));
     }
 }

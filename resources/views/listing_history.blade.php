@@ -10,35 +10,28 @@
         </h2>
     </x-slot>
 
-    <table style="width: 50%;" class="mx-auto">
-        <thead>
-            <tr>
-                <th>商品画像</th>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>在庫数</th>
-                <th>出品状況</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody class='border-gray-300'>
+    <div class="mt-7 mx-auto font-semibold" style="width: 35%;">
+        <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-5">
             @if (is_countable($exhibit_products) > 0)
             @foreach($exhibit_products as $exhibit_product)
-            <tr>
-                <td><img src="upload/{{$exhibit_product->image}}" width="400"></td>
-                <td>{{$exhibit_product->name}}</td>
-                <td>¥{{$exhibit_product->price}}</td>
-                <td>{{$exhibit_product->inventory}}点</td>
-                <td>@if ($exhibit_product->listing_status == 0)
-                    出品中
-                    @elseif ($exhibit_product->listing_status == 1)
-                    出品停止中
-                    @endif
-                </td>
-                <td><a href="{{ route('exhibition-product', ['id'=>$exhibit_product->id]) }}" class="btn btn-primary">詳細</a></td>
-            </tr>
+            <a href="{{ route('exhibition-product', ['id'=>$exhibit_product->id]) }}" class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                <div class="mx-auto" style="display: flex;" align=center>
+                    <img src="upload/{{$exhibit_product->image}}" width="200">
+                    <div>
+                        <div>{{$exhibit_product->name}}</div>
+                        <div>¥{{$exhibit_product->price}}</div>
+                        <div>在庫：{{$exhibit_product->inventory}}点</div>
+                        <div>@if ($exhibit_product->listing_status == 0)
+                            <div class="text-green-500">出品中</div>
+                            @elseif ($exhibit_product->listing_status == 1)
+                            <div class="text-red-500">出品停止中</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </a>
             @endforeach
             @endif
-        </tbody>
-    </table>
+        </div>
+    </div>
 </x-app-layout>

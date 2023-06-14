@@ -10,40 +10,32 @@
         </h2>
     </x-slot>
 
-    <table style="width: 50%;" class="mx-auto">
-        <thead>
-            <tr>
-                <th>商品イメージ</th>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>在庫数</th>
-                <th>出品状況</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><img src="upload/{{$product->image}}" width="400"></td>
-                <td>{{$product->name}}</td>
-                <td>¥{{$product->price}}</td>
-                <td>{{$product->inventory}}点</td>
-                <td>@if ($product->listing_status == 0)
-                    出品中
+    <div style="width: 50%;" class="mt-7 mx-auto">
+        <div class="font-semibold" style="display: flex;" align=center>
+            <img src="upload/{{$product->image}}" width="400">
+            <div>
+                <div>{{$product->name}}</div>
+                <div>¥{{$product->price}}</div>
+                <div>{{$product->inventory}}点</div>
+                <div>@if ($product->listing_status == 0)
+                    <div class="text-green-500">出品中</div>
                     @elseif ($product->listing_status == 1)
-                    出品停止中
+                    <div class="text-red-500">出品停止中</div>
                     @endif
-                </td>
-                <td>@if ($product->listing_status == 0)
+                </div>
+                <div>@if ($product->listing_status == 0)
                     <form action="{{ route('stopListing', $product->id) }}" method="POST">
                         @csrf
                         <x-stopListing-button></x-stopListing-button>
                     </form>
                     @elseif ($product->listing_status == 1)
-
-                    <x-resumeListing-button></x-resumeListing-button>
-
+                    <form action="{{ route('resumeListing', $product->id) }}" method="POST">
+                        @csrf
+                        <x-resumeListing-button></x-resumeListing-button>
+                    </form>
                     @endif
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
