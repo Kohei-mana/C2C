@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\View\View;
 use PhpParser\Node\Expr\New_;
+use App\Models\Completion;
 
 class PurchaseController extends Controller
 {
@@ -18,11 +19,7 @@ class PurchaseController extends Controller
 
         $cart = New Selection();
         $cart->all();
-        dd($cart);
-        // $product_id = $product->id;
-        // dd($product_id);
-
-
+       
         if(!$cart->where('product_id', $product->id)->exists()) {
             $cart->product_id=$product->id;
             $cart->user_id=Auth::user()->id;
@@ -71,5 +68,22 @@ class PurchaseController extends Controller
         return View('shopping-cart', compact('cart', 'sum'));
     }
 
+
+
+    public function inputShippingAddress(): View
+    {
+        return view('input-shipping-address');
+    }
+
+    public function showHistory()
+    {
+        $completions = Completion::whereHas('order', function ($q) {
+            $q->where('user_id', Auth::id());
+        })
+            ->with(['order', 'product'])
+            ->get();
+
+        return view('purchase_history', compact('completions'));
+    }
 
 }

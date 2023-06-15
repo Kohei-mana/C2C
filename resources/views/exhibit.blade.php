@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('confirm-exhibit') }}" enctype="multipart/form-data" style="width: 50%;" class="max-w-sm mx-auto">
+    <form method="POST" action="{{ route('confirm-exhibit') }}" enctype="multipart/form-data" style="width: 40%;" class="mx-auto">
         @csrf
 
         <!-- name -->
@@ -34,7 +34,7 @@
         </div>
 
         <!-- description -->
-        <div class="mt-4" style="height: 200px;">
+        <div class="mt-4">
             <x-input-label for="description" :value="__('商品説明')" />
             <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" autocomplete="description" wrap="hard" />
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
