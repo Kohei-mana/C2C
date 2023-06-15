@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/favorite', function () {
         return view('favorite');
     })->name('favorite');
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/exhibit', [ExhibitController::class, 'exhibitPage'])->name('exhibit');
     Route::post('/confirm-exhibit', [ExhibitController::class, 'confirmExhibitPage'])->name('confirm-exhibit');
     Route::get('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
+
+    Route::get('/input-shipping-address', [PurchaseController::class, 'inputShippingAddress'])->name('input-shipping-address');
 });
 
 require __DIR__ . '/auth.php';
