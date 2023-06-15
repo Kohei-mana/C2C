@@ -18,17 +18,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verification_at' => 'datetime'
     ];
 
-  
-    public function products() {
+
+    public function products()
+    {
         return $this->hasMany('App\Models\Product');
     }
- 
-    public function favorites() {
+
+    public function favorites()
+    {
         return $this->hasMany('App\Models\Favorite');
-      
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
-
     }
 }
