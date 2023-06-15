@@ -24,7 +24,7 @@
                 <td>¥{{$cart_product->price}}</td>
                 <td>{{$cart_product->quantity}}点</td>
                 <td>{{ $subtotal = $cart_product->price * $cart_product->quantity }}</td>
-                <td><a href="{{ Route('remove_from_cart, ['id'=>$cart_product->id]) }}">削除</a></td>
+                <td><a href="{{ Route('remove_from_cart', ['id'=>$cart_product->id]) }}">削除</a></td>
             </tr>
             @endforeach
         </tbody>

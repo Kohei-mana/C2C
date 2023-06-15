@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/shopping_cart', [PurchaseController::class, 'shoppingCartPage'])
     ->name('shopping_cart');
     //カートから削除
-    Route::get('/shopping_cart/deleted/', [PurchaseController::class, 'removeFromCart'])
+    Route::get('/shopping_cart/deleted', [PurchaseController::class, 'removeFromCart'])
     ->name('remove_from_cart');
 
 

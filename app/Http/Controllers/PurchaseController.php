@@ -8,6 +8,7 @@ use App\Models\Selection;
 use App\Models\User;
 use App\Models\Product;
 use Illuminate\View\View;
+use PhpParser\Node\Expr\New_;
 
 class PurchaseController extends Controller
 {
@@ -17,6 +18,7 @@ class PurchaseController extends Controller
 
         $cart = New Selection();
         $cart->all();
+        dd($cart);
         // $product_id = $product->id;
         // dd($product_id);
 
@@ -50,13 +52,23 @@ class PurchaseController extends Controller
 
     }
 
-    public function removeFromCart($id):View
+    public function removeFromCart(Request $request)
     {
+        $id = $request->query('id');
+        $id = (integer) $id;
 
-        $cart_product = Selection::find($id);
-        $cart_product->delete();
+        $cart = Selection::get();
+        
+        $cart->where('id', $id)->first();
+        dd($cart);
+        $cart->delete();
+        
+        $cart->join('products', 'selections.product_id', '=', 'products.id')->all();
 
-        return View('shopping-cart', compact('cart_product'));
+        $sum = $cart->map(function($cart) { return $cart->price * $cart->quantity; })->sum();
+
+        
+        return View('shopping-cart', compact('cart', 'sum'));
     }
 
 
