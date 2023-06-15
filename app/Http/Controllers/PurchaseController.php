@@ -8,6 +8,7 @@ use App\Models\Selection;
 use App\Models\User;
 use App\Models\Product;
 use Illuminate\View\View;
+use PhpParser\Node\Expr\New_;
 use App\Models\Completion;
 
 class PurchaseController extends Controller
@@ -16,50 +17,58 @@ class PurchaseController extends Controller
     {
         $quantity = $request->quantity;
 
-        $cart = new Selection();
+        $cart = New Selection();
         $cart->all();
-        // $product_id = $product->id;
-        // dd($product_id);
-
-
-        if (!$cart->where('product_id', $product->id)->exists()) {
-            $cart->product_id = $product->id;
-            $cart->user_id = Auth::user()->id;
-            $cart->quantity = $quantity;
+       
+        if(!$cart->where('product_id', $product->id)->exists()) {
+            $cart->product_id=$product->id;
+            $cart->user_id=Auth::user()->id;
+            $cart->quantity=$quantity;
             $cart->timestamps = false;
             $cart->save();
         } else {
-
+            
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
-
+        
         return back();
     }
 
-    public function shoppingCartPage(): View
+    public function shoppingCartPage():View
     {
-
+        
         $cart = Selection::join('products', 'selections.product_id', '=', 'products.id')->get();
-        $cart->user_id = Auth::user()->id;
+        $cart->user_id=Auth::user()->id;
 
-        $sum = $cart->map(function ($cart) {
-            return $cart->price * $cart->quantity;
-        })->sum();
+        $sum = $cart->map(function($cart) { return $cart->price * $cart->quantity; })->sum();
 
+        
 
+        return View('shopping-cart', compact('cart', 'sum'));
 
+    }
+
+    public function removeFromCart(Request $request)
+    {
+        $id = $request->query('id');
+        $id = (integer) $id;
+
+        $cart = Selection::get();
+        
+        $cart->where('id', $id)->first();
+        dd($cart);
+        $cart->delete();
+        
+        $cart->join('products', 'selections.product_id', '=', 'products.id')->all();
+
+        $sum = $cart->map(function($cart) { return $cart->price * $cart->quantity; })->sum();
+
+        
         return View('shopping-cart', compact('cart', 'sum'));
     }
 
-    public function removeFromCart($id): View
-    {
 
-        $cart_product = Selection::find($id);
-        $cart_product->delete();
-
-        return View('shopping-cart', compact('cart_product'));
-    }
 
     public function inputShippingAddress(): View
     {
@@ -76,4 +85,5 @@ class PurchaseController extends Controller
 
         return view('purchase_history', compact('completions'));
     }
+
 }

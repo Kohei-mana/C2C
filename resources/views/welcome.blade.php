@@ -860,6 +860,9 @@
                     <button type="submit" class="btn btn-primary border-4">検索</button>
                 </form>
             </div>
+
+            
+
             @if (Route::has('login'))
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right w-10%">
                 @auth
@@ -874,6 +877,8 @@
             </div>
             @endif
         </div>
+
+        <a href="{{ route('shopping_cart') }}">カート</a>
 
 
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
