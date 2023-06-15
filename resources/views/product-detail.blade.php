@@ -1,11 +1,16 @@
-
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/output.css" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-red overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div>{{ $product->name }}</div>
-                    <img src="../upload/{{ $product->image }}" width="300">
+                    <div class="w-40">{{ $product->name }}</div>
+                    <img src="../upload/{{ $product->image }}" class="w-80">
                     <div>{{ $product->category_name }}</div>
                     <div>{{ $product->price }}</div>
                     <div>{{ $product->product_description }}</div>

@@ -23,7 +23,7 @@ class ShowProducts extends Controller
         $products = DB::table('products')
             ->select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'categories.category_name as category_name')
             ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->paginate(2);
+            ->paginate(6);
         
         $categories = DB::table('categories')
         ->select('id', 'category_name')

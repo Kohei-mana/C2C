@@ -79,7 +79,7 @@
                                 <div>{{ $product->id }}</div>
                                 <div>{{ $product->name }}</div> 
                                 <div>{{ $product->category_name }}</div> 
-                                <img src="img/{{ $product->image }}" width="300">
+                                <img src="upload/{{ $product->image }}" width="300">
                                 <div>{{ $product->price }}</div>
                             </a>
                         @endforeach
