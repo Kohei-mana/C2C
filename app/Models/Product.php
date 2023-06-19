@@ -25,4 +25,16 @@ class Product extends Model
         $categoryName = $this->category->name;
         return $categoryName;
     }
+
+    public function users() {
+        return $this->belongsTo('App\Models\User');
+    }
+ 
+    public function favorites() {
+        return $this->hasMany('App\Models\Favorite');
+    }
+
+    public function selections() {
+        return $this->hasMany('App\Models\Selection');
+    }
 }

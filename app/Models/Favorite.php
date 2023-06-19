@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Selection extends Model
+class Favorite extends Model
 {
     use HasFactory;
 
-
-    public function users()
-    {
+    public function users() {
         return $this->belongsTo('App\Models\User');
     }
-
-    public function products()
-    {
+ 
+    public function products() {
         return $this->belongsTo('App\Models\Product');
     }
 }

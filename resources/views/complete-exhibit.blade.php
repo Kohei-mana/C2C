@@ -1,15 +1,16 @@
 <x-app-layout>
-    <table style="width: 50%;" class="max-w-md mx-auto">
-        <h2 class="mb-4 text-sm text-gray-600">
-            {{ __('THANK YOU') }}<br>
-            {{ __('出品が完了しました') }}
-        </h2>
+    <div style="width: 60%; margin-top: 5%; margin-left: auto; margin-right: auto;">
+        <div class="mt-7 mx-auto font-semibold text-center" style="width: 35%;">
+            <h2 class="mb-4 text-2xl text-gray-600">
+                {{ __('THANK YOU') }}<br>
+                {{ __('出品が完了しました') }}
+            </h2>
 
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="ml-4">
-                {{ __('ホームに戻る') }}
-            </x-primary-button>
+            <div class="flex items-center justify-center mt-4">
+                <x-secondary-button class="ml-4 text-xl">
+                    {{ __('ホームに戻る') }}
+                </x-secondary-button>
+            </div>
         </div>
-    </table>
+    </div>
 </x-app-layout>
