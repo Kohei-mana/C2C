@@ -52,13 +52,28 @@ class PurchaseController extends Controller
         return View('shopping-cart', compact('cart', 'sum'));
     }
 
-    public function removeFromCart($id): View
+    public function removeFromCart(Request $request): View
     {
 
-        $cart_product = Selection::find($id);
-        $cart_product->delete();
+        $id = $request->query('id');
+        $id = (integer) $id;
 
-        return View('shopping-cart', compact('cart_product'));
+        $cart = Selection::get();
+        // dd($cart);
+        $item = Selection::where('id', $id)->first();
+        // foreach($items as $item){
+
+        // }
+        dd($item);
+        
+        // $item->delete();
+        
+        $cart->join('products', 'selections.product_id', '=', 'products.id')->all();
+
+        $sum = $cart->map(function($cart) { return $cart->price * $cart->quantity; })->sum();
+
+        
+        return View('shopping-cart', compact('cart', 'sum'));
     }
 
     public function inputShippingAddress(): View
