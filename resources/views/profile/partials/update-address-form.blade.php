@@ -17,13 +17,13 @@
 
         <div>
             <x-input-label for="postal_code" :value="__('Postal_code')" />
-            <x-text-input id="postal_code" name="postal_code" type="text" class="mt-1 block w-full" required autofocus autocomplete="postal_code" />
+            <x-text-input id="postal_code" name="postal_code" type="text" class="mt-1 block w-full" required autocomplete="postal_code" />
             <x-input-error class="mt-2" :messages="$errors->get('postal_code')" />
         </div>
 
         <div>
             <x-input-label for="address" :value="__('Address')" />
-            <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" required autofocus autocomplete="address" />
+            <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" required autocomplete="address" />
             <x-input-error class="mt-2" :messages="$errors->get('address')" />
         </div>
 
