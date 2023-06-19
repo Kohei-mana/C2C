@@ -55,10 +55,14 @@ class PurchaseController extends Controller
         $id = (integer) $id;
 
         $cart = Selection::get();
+        // dd($cart);
+        $item = Selection::where('id', $id)->first();
+        // foreach($items as $item){
+
+        // }
+        dd($item);
         
-        $cart->where('id', $id)->first();
-        dd($cart);
-        $cart->delete();
+        // $item->delete();
         
         $cart->join('products', 'selections.product_id', '=', 'products.id')->all();
 
