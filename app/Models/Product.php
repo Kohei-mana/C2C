@@ -51,4 +51,15 @@ class Product extends Model
     {
         return self::where('user_id', $id)->orderBy('created_at', 'desc')->get();
     }
+
+    public static function updateListingStatus($exhibit_product)
+    {
+        if ($exhibit_product->listing_status == 0) {
+            $exhibit_product->listing_status = 1;
+        } else {
+            $exhibit_product->listing_status = 0;
+        }
+
+        $exhibit_product->save();
+    }
 }

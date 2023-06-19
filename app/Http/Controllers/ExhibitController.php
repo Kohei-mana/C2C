@@ -74,21 +74,10 @@ class ExhibitController extends Controller
         return view('exhibition-product', compact('exhibit_product'));
     }
 
-
-    public function stopListing($id)
+    public function updateListing($id)
     {
         $exhibit_product = Product::getProduct($id);
-        $exhibit_product->listing_status = 1;
-        $exhibit_product->save();
-
-        return view('exhibition-product', compact('exhibit_product'));
-    }
-
-    public function resumeListing($id)
-    {
-        $exhibit_product = Product::getProduct($id);
-        $exhibit_product->listing_status = 0;
-        $exhibit_product->save();
+        Product::updateListingStatus($exhibit_product);
 
         return view('exhibition-product', compact('exhibit_product'));
     }

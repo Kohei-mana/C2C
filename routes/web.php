@@ -46,8 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/listing_history', [ExhibitController::class, 'showAll'])->name('listing_history');
 
     Route::get('/exhibition-product/{id}', [ExhibitController::class, 'showSpecific'])->name('exhibition-product');
-    Route::post('/stopListing/{id}', [ExhibitController::class, 'stopListing'])->name('stopListing');
-    Route::post('/resumeListing/{id}', [ExhibitController::class, 'resumeListing'])->name('resumeListing');
+    Route::post('/update-listing/{id}', [ExhibitController::class, 'updateListing'])->name('updateListing');
 
     Route::get('/purchase_history', [PurchaseController::class, 'showHistory'])->name('purchase_history');
 
