@@ -38,7 +38,7 @@ class ExhibitController extends Controller
         return view('confirm-exhibit', $data);
     }
 
-    public function store(ExhibitRequest $request): View
+    public function store(Request $request): View
     {
         $data = $request->session()->all();
 
