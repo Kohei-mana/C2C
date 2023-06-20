@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ExhibitRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Events\Exhibit;
@@ -14,38 +15,30 @@ class ExhibitController extends Controller
 {
     public function create()
     {
-        $categories = Category::getLists()->prepend('選択', '');
+        $categories = Category::getLists();
         return view("exhibit", ["categories" => $categories]);
     }
 
-    public function confirm(Request $request): View
+    public function confirm(ExhibitRequest $request): View
     {
-        $request->validate([
-            'product_name' => ['required', 'string', 'max:40'],
-            'category_id' => ['required'],
-            'price' => ['required', 'integer', 'min:300', 'max:9999999'],
-            'inventory' => ['required', 'integer', 'min:1'],
-            'description' => ['string', 'nullable', 'max:1000'],
-            'image' => ['required']
-        ]);
+        $data = [
+            'product_name' => $request->product_name,
+            'category_id' => $request->category_id,
+            'category_name' => Category::getCategoryName($request->category_id),
+            'price' => $request->price,
+            'inventory' => $request->inventory,
+            'description' => $request->description,
+            'filename' => $request->file('image')->getClientOriginalName()
+        ];
 
-        $product_name = $request->product_name;
-        $category_id = $request->category_id;
-        $category_name = Category::getCategory_name($category_id);
-        $price = $request->price;
-        $inventory = $request->inventory;
-        $description = $request->description;
-        $image = $request->file("image");
-        $filename = $image->getClientOriginalName();
-        $move = $image->move('./upload/', $filename);
+        $request->file('image')->move('./upload/', $data['filename']);
 
-        $data = compact('product_name', 'category_id', 'price', 'inventory', 'description', 'filename', 'category_name');
         session($data);
 
         return view('confirm-exhibit', $data);
     }
 
-    public function store(Request $request): View
+    public function store(ExhibitRequest $request): View
     {
         $data = $request->session()->all();
 
@@ -53,7 +46,7 @@ class ExhibitController extends Controller
 
         $request->session()->flush();
 
-        event(new Exhibit($product));
+        // event(new Exhibit($product));
 
         Auth::loginUsingId($product->user_id);
 

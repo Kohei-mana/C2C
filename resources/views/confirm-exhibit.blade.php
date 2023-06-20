@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form method="GET" action="{{ route('complete-exhibit') }}" style="width: 50%;" class="max-w-md mx-auto">
+    <form method="POST" action="{{ route('complete-exhibit') }}" style="width: 50%;" class="max-w-md mx-auto">
         @csrf
 
         <div class="border-2 border-black">

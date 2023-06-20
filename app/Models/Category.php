@@ -19,10 +19,10 @@ class Category extends Model
 
     public static function getLists()
     {
-        return self::orderBy('id', 'asc')->pluck('category_name', 'id');
+        return self::orderBy('id', 'asc')->pluck('category_name', 'id')->prepend('選択', '');
     }
 
-    public static function getCategory_name($category_id)
+    public static function getCategoryName($category_id)
     {
         return self::find($category_id)->category_name;
     }
