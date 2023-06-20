@@ -22,7 +22,20 @@ class ExhibitRequest extends FormRequest
             'price' => ['required', 'integer', 'min:300', 'max:9999999'],
             'inventory' => ['required', 'integer', 'min:1'],
             'description' => ['string', 'nullable', 'max:1000'],
-            'image' => ['required']
+            'image' => ['sometimes', 'required']
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'product_name',
+            'category_id',
+            'category_name',
+            'price',
+            'inventory',
+            'description',
+            'filename'
         ];
     }
 }

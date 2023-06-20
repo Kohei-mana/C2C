@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Events\Exhibit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class ExhibitController extends Controller
@@ -38,17 +39,21 @@ class ExhibitController extends Controller
         return view('confirm-exhibit', $data);
     }
 
-    public function store(Request $request): View
+    public function store(Request $request)
     {
+        $data2 = new ExhibitRequest();
         $data = $request->session()->all();
+        $validator = Validator::make($data, $data2->rules());
+
+        if ($validator->fails()) {
+            return redirect()->route('exhibit')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $product = Product::createProduct($data);
 
-        $request->session()->flush();
-
-        // event(new Exhibit($product));
-
-        Auth::loginUsingId($product->user_id);
+        $request->session()->forget($data2->attributes());
 
         return view('complete-exhibit');
     }
