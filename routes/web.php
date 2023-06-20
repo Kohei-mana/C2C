@@ -28,8 +28,7 @@ Route::get('/', [ShowProducts::class, 'show'])
 Route::get('/', [ShowProducts::class, 'search'])
     ->name('search-product');
 
-Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
-    ->name('product-detail');
+
 
 
 Route::get('/dashboard', function () {
@@ -44,18 +43,19 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/favorite', [FavoriteController::class, 'showFavoriteProducts'])->name('favorite');
 
-    Route::get('/listing_history', [ExhibitController::class, 'showHistory'])->name('listing_history');
+    Route::get('/listing_history', [ExhibitController::class, 'showAll'])->name('listing_history');
 
-    Route::get('/exhibition-product/{id}', [ExhibitController::class, 'show'])->name('exhibition-product');
-    Route::post('/stopListing/{id}', [ExhibitController::class, 'stopListing'])->name('stopListing');
-    Route::post('/resumeListing/{id}', [ExhibitController::class, 'resumeListing'])->name('resumeListing');
+    Route::get('/exhibition-product/{id}', [ExhibitController::class, 'showSpecific'])->name('exhibition-product');
+    Route::post('/update-listing/{id}', [ExhibitController::class, 'updateListing'])->name('updateListing');
 
     Route::get('/purchase_history', [PurchaseController::class, 'showHistory'])->name('purchase_history');
 
-    Route::get('/exhibit', [ExhibitController::class, 'exhibitPage'])->name('exhibit');
-    Route::post('/confirm-exhibit', [ExhibitController::class, 'confirmExhibitPage'])->name('confirm-exhibit');
-    Route::get('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
+    Route::get('/exhibit', [ExhibitController::class, 'create'])->name('exhibit');
+    Route::post('/confirm-exhibit', [ExhibitController::class, 'confirm'])->name('confirm-exhibit');
+    Route::post('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
 
+    Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+        ->name('product-detail');
 
     // // いいね
     Route::get('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
@@ -72,13 +72,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/shopping_cart/deleted', [PurchaseController::class, 'removeFromCart'])
         ->name('remove_from_cart');
 
-
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');
 
-
     Route::get('/input-shipping-address', [PurchaseController::class, 'inputShippingAddress'])->name('input-shipping-address');
+    Route::post('/input-payment-information', [PurchaseController::class, 'inputPaymentInformation'])->name('input-payment-information');
+    Route::post('/complete-purchase', [ExhibitController::class, 'store'])->name('complete-purchase');
 });
+
 
 require __DIR__ . '/auth.php';
