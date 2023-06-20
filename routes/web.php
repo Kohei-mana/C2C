@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [ShowProducts::class, 'show'])
     ->name('home');
 
-Route::get('/', [ShowProducts::class, 'search'])
+Route::get('/searched', [ShowProducts::class, 'search'])
     ->name('search-product');
 
 Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [ShowProducts::class, 'show'])
     ->name('home');
 
-    Route::get('/serched', [ShowProducts::class, 'search'])
+    Route::get('/searched', [ShowProducts::class, 'search'])
         ->name('search-product');
 
     Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
