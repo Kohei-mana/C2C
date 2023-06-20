@@ -29,7 +29,7 @@ class PurchaseController extends Controller
             $cart->timestamps = false;
             $cart->save();
         } else {
-
+            $cart->user_id = Auth::user()->id;
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
@@ -39,9 +39,10 @@ class PurchaseController extends Controller
 
     public function shoppingCartPage(): View
     {
-
-        $cart = Selection::join('products', 'selections.product_id', '=', 'products.id')->get();
+        //
+        $cart = Selection::select('*', 'selections.id as id')->join('products', 'selections.product_id', '=', 'products.id')->get();
         $cart->user_id = Auth::user()->id;
+        // dd($cart);
 
         $sum = $cart->map(function ($cart) {
             return $cart->price * $cart->quantity;
@@ -54,15 +55,21 @@ class PurchaseController extends Controller
 
     public function removeFromCart(Request $request)
     {
+        $user=Auth::user()->id;
+        //リクエストで取得したプロダクトIDを$productIdに代入
+        $productId = $request->query('id');
+        //int型に変換
+        $productId = (integer) $productId;
 
-        $id = $request->query('id');
-        $id = (integer) $id;
-        // dd($id);
-
-        // $cart = Selection::get();
+        //selectinsテーブルからすべてのデータを取得
+        $cart = Selection::get();
         // dd($cart);
-        $item = Selection::where('id', $id)->first();
-        dd($item);
+        //クリックした商品のselections内id(リクエストでうけとったid)と等しい商品を取得
+        $item = Selection::where('id', $productId)->first();
+        $cart->user_id=Auth::user()->id;
+        
+        
+        // dd($item);
         $item->delete();
         
         // $cart->join('products', 'selections.product_id', '=', 'products.id')->all();

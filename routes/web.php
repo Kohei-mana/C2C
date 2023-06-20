@@ -38,6 +38,15 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/', [ShowProducts::class, 'show'])
+    ->name('home');
+
+    Route::get('/serched', [ShowProducts::class, 'search'])
+        ->name('search-product');
+
+    Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+        ->name('product-detail');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
