@@ -29,10 +29,13 @@ class ExhibitController extends Controller
             'price' => $request->price,
             'inventory' => $request->inventory,
             'description' => $request->description,
-            'filename' => $request->file('image')->getClientOriginalName()
         ];
 
-        $request->file('image')->move('./upload/', $data['filename']);
+        $file = $request->file('image');
+        $filename = $file->getClientOriginalName();
+        $file->move('./upload/', $filename);
+
+        $data['image'] = $filename;
 
         session($data);
 
@@ -41,9 +44,9 @@ class ExhibitController extends Controller
 
     public function store(Request $request)
     {
-        $data2 = new ExhibitRequest();
+        $exhibit_request = new ExhibitRequest();
         $data = $request->session()->all();
-        $validator = Validator::make($data, $data2->rules());
+        $validator = Validator::make($data, $exhibit_request->rules());
 
         if ($validator->fails()) {
             return redirect()->route('exhibit')
@@ -53,7 +56,7 @@ class ExhibitController extends Controller
 
         $product = Product::createProduct($data);
 
-        $request->session()->forget($data2->attributes());
+        $request->session()->forget($exhibit_request->attributes());
 
         return view('complete-exhibit');
     }

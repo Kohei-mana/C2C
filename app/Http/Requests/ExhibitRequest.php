@@ -35,7 +35,7 @@ class ExhibitRequest extends FormRequest
             'price',
             'inventory',
             'description',
-            'filename'
+            'image'
         ];
     }
 }
