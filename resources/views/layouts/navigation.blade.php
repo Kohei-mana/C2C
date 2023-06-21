@@ -22,9 +22,12 @@
 
 
 
-            <!-- Settings Dropdown -->
+
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 
+                <x-nav-link :href="route('shopping_cart')" :active="request()->routeIs('shopping_cart')" width="48">
+                    {{ __('カート') }}
+                </x-nav-link>
                 <x-nav-link :href="route('exhibit')" :active="request()->routeIs('exhibit')" width="48">
                     {{ __('出品') }}
                 </x-nav-link>

@@ -18,8 +18,6 @@ class PurchaseController extends Controller
 
         $cart = new Selection();
         $cart->all();
-        // $product_id = $product->id;
-        // dd($product_id);
 
 
         if (!$cart->where('product_id', $product->id)->exists()) {
@@ -29,7 +27,9 @@ class PurchaseController extends Controller
             $cart->timestamps = false;
             $cart->save();
         } else {
+
             $cart->user_id = Auth::user()->id;
+
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
@@ -39,10 +39,10 @@ class PurchaseController extends Controller
 
     public function shoppingCartPage(): View
     {
-        //
+
         $cart = Selection::select('*', 'selections.id as id')->join('products', 'selections.product_id', '=', 'products.id')->get();
         $cart->user_id = Auth::user()->id;
-        // dd($cart);
+
 
         $sum = $cart->map(function ($cart) {
             return $cart->price * $cart->quantity;
@@ -55,34 +55,37 @@ class PurchaseController extends Controller
 
     public function removeFromCart(Request $request)
     {
+
         $user=Auth::user()->id;
-        //リクエストで取得したプロダクトIDを$productIdに代入
+      
         $productId = $request->query('id');
-        //int型に変換
+
         $productId = (integer) $productId;
 
-        //selectinsテーブルからすべてのデータを取得
         $cart = Selection::get();
-        // dd($cart);
-        //クリックした商品のselections内id(リクエストでうけとったid)と等しい商品を取得
+
         $item = Selection::where('id', $productId)->first();
         $cart->user_id=Auth::user()->id;
         
-        
-        // dd($item);
         $item->delete();
-        
-        // $cart->join('products', 'selections.product_id', '=', 'products.id')->all();
-
-        // $sum = $cart->map(function($cart) { return $cart->price * $cart->quantity; })->sum();
 
         return back();
-        // return View('shopping-cart', compact('cart', 'sum'));
     }
+
 
     public function inputShippingAddress(): View
     {
         return view('input-shipping-address');
+    }
+
+    public function inputPaymentInformation(): View
+    {
+        return view('input-payment-information');
+    }
+
+    public function store(): View
+    {
+        return view('complete-purchase');
     }
 
     public function showHistory()

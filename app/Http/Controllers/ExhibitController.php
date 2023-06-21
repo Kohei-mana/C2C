@@ -3,103 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ExhibitRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Events\Exhibit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\DB;
 
 class ExhibitController extends Controller
 {
-    public function exhibitPage()
+    public function create()
     {
-        $category = new Category;
-        $categories = $category->getLists()->prepend('選択', '');
+        $categories = Category::getLists();
         return view("exhibit", ["categories" => $categories]);
     }
 
-    public function confirmExhibitPage(Request $request): View
+    public function confirm(ExhibitRequest $request): View
     {
-        $request->validate([
-            'product_name' => ['required', 'string', 'max:40'],
-            'category_id' => ['required'],
-            'price' => ['required', 'integer', 'min:300', 'max:9999999'],
-            'inventory' => ['required', 'integer', 'min:1'],
-            'description' => ['string', 'nullable', 'max:1000'],
-            'image' => ['required']
-        ]);
+        $data = [
+            'product_name' => $request->product_name,
+            'category_id' => $request->category_id,
+            'category_name' => Category::getCategoryName($request->category_id),
+            'price' => $request->price,
+            'inventory' => $request->inventory,
+            'description' => $request->description,
+            'filename' => $request->file('image')->getClientOriginalName()
+        ];
 
-        $product_name = $request->product_name;
-        $category_id = $request->category_id;
-        $category_name = DB::table('categories')
-            ->where('id', $category_id)
-            ->value('category_name');
-        $price = $request->price;
-        $inventory = $request->inventory;
-        $description = $request->description;
-        $image = $request->file("image");
-        $filename = $image->getClientOriginalName();
-        $move = $image->move('./upload/', $filename);
+        $request->file('image')->move('./upload/', $data['filename']);
 
-        $data = compact('product_name', 'category_id', 'price', 'inventory', 'description', 'filename', 'category_name');
         session($data);
 
         return view('confirm-exhibit', $data);
     }
 
-    public function store(Request $request): View
+    public function store(Request $request)
     {
+        $data2 = new ExhibitRequest();
         $data = $request->session()->all();
+        $validator = Validator::make($data, $data2->rules());
 
-        $product = Product::create([
-            'name' => $data['product_name'],
-            'image' => $data['filename'],
-            'category_id' => $data['category_id'],
-            'user_id'  => Auth::id(),
-            'price' => $data['price'],
-            'inventory' => $data['inventory'],
-            'product_description' => $data['description'],
-            'listing_status' => '0'
-        ]);
+        if ($validator->fails()) {
+            return redirect()->route('exhibit')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        $request->session()->flush();
+        $product = Product::createProduct($data);
 
-        event(new Exhibit($product));
+        $request->session()->forget($data2->attributes());
 
         return view('complete-exhibit');
     }
 
-    public function showHistory()
+    public function showAll()
     {
-        $exhibit_products = Product::where('user_id', Auth::id())->orderBy('created_at', 'asc')->get();
+        $id = Auth::id();
+        $exhibit_products = Product::getExhibitProducts($id);
 
         return view('listing_history', compact('exhibit_products'));
     }
 
-    public function show($id)
+    public function showSpecific($id)
     {
-        $product = Product::find($id);
-
-        return view('exhibition-product', compact('product'));
+        $exhibit_product = Product::getProduct($id);
+        return view('exhibition-product', compact('exhibit_product'));
     }
 
-    public function stopListing($id)
+    public function updateListing($id)
     {
-        $product = Product::find($id);
-        $product->listing_status = 1;
-        $product->save();
+        $exhibit_product = Product::getProduct($id);
+        Product::updateListingStatus($exhibit_product);
 
-        return view('exhibition-product', compact('product'));
-    }
-
-    public function resumeListing($id)
-    {
-        $product = Product::find($id);
-        $product->listing_status = 0;
-        $product->save();
-
-        return view('exhibition-product', compact('product'));
+        return view('exhibition-product', compact('exhibit_product'));
     }
 }
