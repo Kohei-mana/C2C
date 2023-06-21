@@ -24,18 +24,20 @@
             </select>
         </div>
 
-        <!-- Price -->
-        <div class="mt-4">
-            <x-input-label for="price" :value="__('金額')" />
-            <x-text-input id="price" class="block mt-1 w-full" type="number" min="300" max="9999999" name="price" required autocomplete="price" />
-            <x-input-error :messages="$errors->get('price')" class="mt-2" />
-        </div>
+        <div class="mt-4 flex">
+            <!-- Price -->
+            <div class="mr-10 flex-1">
+                <x-input-label for="price" :value="__('金額(¥300〜9,999,999)')" />
+                <x-text-input id="price" class="block mt-1 w-full" type="number" min="300" max="9999999" name="price" required autocomplete="price" />
+                <x-input-error :messages="$errors->get('price')" class="mt-2" />
+            </div>
 
-        <!-- inventory -->
-        <div class="mt-4">
-            <x-input-label for="inventory" :value="__('在庫数')" />
-            <x-text-input id="inventory" class="block mt-1 w-full" type="number" min="1" name="inventory" required autocomplete="inventory" />
-            <x-input-error :messages="$errors->get('inventory')" class="mt-2" />
+            <!-- inventory -->
+            <div class="flex-1">
+                <x-input-label for="inventory" :value="__('在庫数')" />
+                <x-text-input id="inventory" class="block mt-1 w-full" type="number" min="1" name="inventory" required autocomplete="inventory" />
+                <x-input-error :messages="$errors->get('inventory')" class="mt-2" />
+            </div>
         </div>
 
         <!-- description -->
