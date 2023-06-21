@@ -5,31 +5,21 @@
         </h2>
     </x-slot>
 
-    <table style="width: 50%;" class="max-w-md mx-auto">
-        <thead>
-            <tr>
-                <th>商品画像</th>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>数量</th>
-                <th>小計</th>
-            </tr>
-        </thead>
-
-        <tbody class='border-gray-300'>
-            @foreach($cart as $cart_product)
-            <tr>
-                <td><img src="upload/{{$cart_product->image}}" width="400"></td>
-                <td>{{$cart_product->name}}</td>
-                <td>¥{{$cart_product->price}}</td>
-                <td>{{$cart_product->quantity}}点</td>
-                <td>{{ $subtotal = $cart_product->price * $cart_product->quantity }}</td>
-                <td><a href="{{ Route('remove_from_cart', ['id'=>$cart_product->id]) }}">削除</a></td>
-            </tr>
+        <div style="width: 75%; margin-top: 4%; margin-left: auto; margin-right: auto;">
+        @foreach($cart as $cart_product)
+            <div class="p-4 mt-4 sm:p-8 bg-white shadow sm:rounded-lg flex">
+                <div class="h-30 w-40"><img class="border h-30 w-40" src="upload/{{$cart_product->image}}"></div>
+                <div class="w-3/5 text-center">{{$cart_product->name}}</div>
+                <div class="w-1/5 text-center">¥{{$cart_product->price}}</div>
+                <div class="w-1/5 text-center">{{$cart_product->quantity}}点</div>
+                <div class="w-1/5 text-center">¥{{ $subtotal = $cart_product->price * $cart_product->quantity }}</div>
+                <div class="w-1/5 text-center"><a href="{{ Route('remove_from_cart', ['id'=>$cart_product->id]) }}">削除</a></div>
+            </div>
             @endforeach
-        </tbody>
+            <div class="mt-4">
+                <div>合計</div>
+                <div>¥{{ $sum }}</div>
+            </div>
+        </div>
         
-        <div>合計</div>
-        <div>{{ $sum }}</div>
-    </table>
 </x-app-layout>

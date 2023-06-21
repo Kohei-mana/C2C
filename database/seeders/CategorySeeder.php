@@ -22,5 +22,11 @@ class CategorySeeder extends Seeder
         Category::create([
             'category_name' => '家電',
         ]);
+        Category::create([
+            'category_name' => '楽器',
+        ]);
+        Category::create([
+            'category_name' => 'パソコン・周辺機器',
+        ]);
     }
 }

@@ -74,7 +74,7 @@ class ShowProducts extends Controller
             $searchQueryBuilder->where('products.category_id', $categoryId);
         }
         
-        $products = $searchQueryBuilder->simplePaginate(2);
+        $products = $searchQueryBuilder->simplePaginate(8);
         
         return view('welcome', compact('products', 'categories', 'searchWord', 'categoryId'));
 

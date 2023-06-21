@@ -28,6 +28,11 @@ class Product extends Model
         return $this->hasMany('App\Models\Favorite');
     }
 
+
+    public function selections() {
+        return $this->hasMany('App\Models\Selection');
+    }
+
     public static function createProduct(array $data): Product
     {
         return self::create([
@@ -61,5 +66,6 @@ class Product extends Model
         }
 
         $exhibit_product->save();
+
     }
 }
