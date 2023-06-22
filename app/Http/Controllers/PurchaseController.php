@@ -19,7 +19,6 @@ class PurchaseController extends Controller
         $cart = new Selection();
         $cart->all();
 
-
         if (!$cart->where('product_id', $product->id)->exists()) {
             $cart->product_id = $product->id;
             $cart->user_id = Auth::user()->id;
@@ -27,9 +26,7 @@ class PurchaseController extends Controller
             $cart->timestamps = false;
             $cart->save();
         } else {
-
             $cart->user_id = Auth::user()->id;
-
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
@@ -39,35 +36,17 @@ class PurchaseController extends Controller
 
     public function shoppingCartPage(): View
     {
-
-        $cart = Selection::select('*', 'selections.id as id')->join('products', 'selections.product_id', '=', 'products.id')->get();
-        $cart->user_id = Auth::user()->id;
-
-
-        $sum = $cart->map(function ($cart) {
-            return $cart->price * $cart->quantity;
-        })->sum();
-
+        $cart = Selection::getProductsInACart();
+        $sum = Selection::getSumInACart();
 
         return View('shopping-cart', compact('cart', 'sum'));
     }
 
     public function removeFromCart(Request $request)
     {
-
-        $user=Auth::user()->id;
       
-        $productId = $request->query('id');
-
-        $productId = (integer) $productId;
-
-        $cart = Selection::get();
-
-        $item = Selection::where('id', $productId)->first();
-        $cart->user_id=Auth::user()->id;
-        
-        $item->delete();
-
+        Selection::deleteProductFromCart($request);
+    
         return back();
     }
 

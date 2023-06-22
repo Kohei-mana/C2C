@@ -12,28 +12,31 @@ use Illuminate\Contracts\View\View;
 class FavoriteController extends Controller
 {
     //
-    public function makeFavorite(Product $product, Request $request)
+    public function makeFavorite(Product $product)
     {
         $favorite = New Favorite();
         $favorite->product_id=$product->id;
         $favorite->user_id=Auth::user()->id;
         $favorite->timestamps = false;
         $favorite->save();
-        // return View('product-detail');
         return back();
+
+        // $favorite = Favorite::getFavorite($product);
+        // $favorite->timestamps = false;
+        // $favorite->save();
+        // return back();
     }
 
     public function removeFavorite(Product $product){
-        $user=Auth::user()->id;
-        $favorite=Favorite::where('product_id', $product->id)->where('user_id', $user)->first();
-        // dd($favorite);
+        
+        $favorite = Favorite::getFavorite($product);
         $favorite->delete();
 
         //もしログイン状態なら、
         $login = Auth::check();
         
         if($login){
-            $favorite = Favorite::where('product_id', $product->id)->where('user_id', auth()->user()->id)->first();
+            $favorite = Favorite::getFavorite($product);
         } else {
             $favorite = null;
         }
@@ -42,9 +45,8 @@ class FavoriteController extends Controller
     }
 
     public function showFavoriteProducts() {
-        // $product = Product::
         $user = Auth::user()->id;
-        $favorite_products = Favorite::join('products', 'favorites.product_id', '=', 'products.id')->where('favorites.user_id', $user)->get();
+        $favorite_products = Favorite::getFavoriteProducts();
         
         return View('favorite', compact('favorite_products'));
     }

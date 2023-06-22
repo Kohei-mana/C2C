@@ -28,8 +28,6 @@ class Product extends Model
         return $this->hasMany('App\Models\Favorite');
     }
 
-
-
     public function selections()
     {
 
@@ -40,9 +38,7 @@ class Product extends Model
     {
         return self::create([
             'name' => $data['product_name'],
-
             'image' => $data['image'],
-
             'category_id' => $data['category_id'],
             'user_id'  => Auth::id(),
             'price' => $data['price'],
@@ -50,6 +46,32 @@ class Product extends Model
             'product_description' => $data['description'],
             'listing_status' => '0'
         ]);
+    }
+
+    public static function getShowProducts()
+    {
+        //出品中のすべての商品データを取得
+        return self::
+        select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'categories.category_name as category_name')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->simplePaginate(20);
+    }
+
+    public static function getSelectedProduct($id)
+    {
+        //クリックした商品のデータを取得
+        return self::
+        select('products.id', 'products.name', 'products.image', 'products.price', 'products.product_description', 'products.inventory','categories.category_name as category_name')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->where('products.id', $id)
+        ->first();
+    }
+
+    public static function getProductsJoinedWithCategory()
+    {
+        return self::
+        select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'category_id', 'categories.category_name as category_name')
+        ->join('categories', 'products.category_id', '=', 'categories.id');
     }
 
     public static function getProduct($id)
@@ -71,6 +93,5 @@ class Product extends Model
         }
 
         $exhibit_product->save();
-
     }
 }
