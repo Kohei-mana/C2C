@@ -30,7 +30,6 @@
                 <x-secondary-button class="ml-4 mt-2" onclick="location.href='{{ Route('input-shipping-address') }}'">購入</x-secondary-button>
             </div>
         </div>
-        
-        
+      
         
 </x-app-layout>

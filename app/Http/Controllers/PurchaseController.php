@@ -29,6 +29,7 @@ class PurchaseController extends Controller
         } else {
 
             $cart->user_id = Auth::user()->id;
+
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
@@ -46,7 +47,6 @@ class PurchaseController extends Controller
         $sum = $cart->map(function ($cart) {
             return $cart->price * $cart->quantity;
         })->sum();
-
 
 
         return View('shopping-cart', compact('cart', 'sum'));

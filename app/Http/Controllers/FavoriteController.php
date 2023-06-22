@@ -26,6 +26,7 @@ class FavoriteController extends Controller
     public function removeFavorite(Product $product){
         $user=Auth::user()->id;
         $favorite=Favorite::where('product_id', $product->id)->where('user_id', $user)->first();
+        // dd($favorite);
         $favorite->delete();
 
         //もしログイン状態なら、

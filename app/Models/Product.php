@@ -29,7 +29,10 @@ class Product extends Model
     }
 
 
-    public function selections() {
+
+    public function selections()
+    {
+
         return $this->hasMany('App\Models\Selection');
     }
 
@@ -37,7 +40,9 @@ class Product extends Model
     {
         return self::create([
             'name' => $data['product_name'],
-            'image' => $data['filename'],
+
+            'image' => $data['image'],
+
             'category_id' => $data['category_id'],
             'user_id'  => Auth::id(),
             'price' => $data['price'],

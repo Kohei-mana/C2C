@@ -22,15 +22,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ShowProducts::class, 'show'])
-    ->name('home');
-
-Route::get('/searched', [ShowProducts::class, 'search'])
-    ->name('search-product');
-
-Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
-    ->name('product-detail');
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -39,7 +30,15 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
-    
+
+    Route::get('/', [ShowProducts::class, 'show'])
+    ->name('home');
+
+    Route::get('/searched', [ShowProducts::class, 'search'])
+        ->name('search-product');
+
+    Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+        ->name('product-detail');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/confirm-exhibit', [ExhibitController::class, 'confirm'])->name('confirm-exhibit');
     Route::post('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
 
+    Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+        ->name('product-detail');
 
     // // いいね
     // Route::get('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
@@ -65,17 +66,19 @@ Route::middleware('auth')->group(function () {
     Route::post('/product-detail/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
 
     //カートに追加
+
     Route::post('/product-detail//{product}', [PurchaseController::class, 'addToCart'])
+
         ->name('add_to_cart');
 
     //カートに移動
     Route::get('/shopping_cart', [PurchaseController::class, 'shoppingCartPage'])
         ->name('shopping_cart');
     //カートから削除
+
     Route::post('/shopping_cart/deleted', [PurchaseController::class, 'removeFromCart'])
         ->name('remove_from_cart');
 
-    
 
     Route::get('/dashboard', function () {
         return view('dashboard');
