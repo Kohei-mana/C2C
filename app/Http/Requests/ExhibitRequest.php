@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Product;
-use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ExhibitRequest extends FormRequest
 {
@@ -22,7 +19,7 @@ class ExhibitRequest extends FormRequest
             'price' => ['required', 'integer', 'min:300', 'max:9999999'],
             'inventory' => ['required', 'integer', 'min:1'],
             'description' => ['string', 'nullable', 'max:1000'],
-            'image' => ['sometimes', 'required']
+            'image' => ['required']
         ];
     }
 

@@ -5,14 +5,14 @@
         </h2>
     </x-slot>
 
-    <form method="POST" action="{{ route('input-payment-information') }}" enctype="multipart/form-data" style="width: 20%;" class="mx-auto">
+    <form method="POST" action="{{ route('confirm-purchase') }}" style="width: 20%;" class="mx-auto">
         @csrf
 
         <!-- Card Number -->
-        <div class="mt-4">
+        <div class="mt-10">
             <x-input-label for="card_number" :value="__('カード番号')" />
 
-            <x-text-input id="card_number" class="block mt-1 w-full" type="text" name="card_number" required />
+            <x-text-input id="card_number" class="block mt-1 w-full" type="text" minlength="16" maxlength="16" name="card_number" placeholder="0000000000000000" required />
 
             <x-input-error :messages="$errors->get('card_number')" class="mt-2" />
         </div>
@@ -50,7 +50,7 @@
             <div>
                 <x-input-label for="cvv" :value="__('CVV')" />
 
-                <x-text-input id="cvv" class="block mt-1 w-full" type="text" name="cvv" required />
+                <x-text-input id="cvv" class="block mt-1 w-full" type="text" name="cvv" minlength="3" maxlength="3" placeholder="000" required />
 
                 <x-input-error :messages="$errors->get('cvv')" class="mt-2" />
             </div>
@@ -60,7 +60,7 @@
         <div class="mt-4">
             <x-input-label for="cardholder_name" :value="__('カード名義人')" />
 
-            <x-text-input id="cardholder_name" class="block mt-1 w-full" type="text" name="cardholder_name" required />
+            <x-text-input id="cardholder_name" class="block mt-1 w-full" type="text" name="cardholder_name" placeholder="TARO YAMADA" required autocomplete="off" />
 
             <x-input-error :messages="$errors->get('cardholder_name')" class="mt-2" />
         </div>

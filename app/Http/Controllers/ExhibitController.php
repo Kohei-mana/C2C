@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ExhibitRequest;
 use App\Models\Product;
 use App\Models\Category;
-use App\Events\Exhibit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -50,8 +49,6 @@ class ExhibitController extends Controller
         $exhibit_request = new ExhibitRequest();
         $data = $request->session()->all();
         $validator = Validator::make($data, $exhibit_request->rules());
-
-
         if ($validator->fails()) {
             return redirect()->route('exhibit')
                 ->withErrors($validator)
