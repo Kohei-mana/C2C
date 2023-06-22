@@ -4,7 +4,9 @@
             {{ __('出品内容確認') }}
         </h2>
     </x-slot>
+
     <form method="POST" action="{{ route('complete-exhibit') }}" style="width: 50%;" class="max-w-md mx-auto mt-10">
+
         @csrf
 
         <div class="border-2 border-black">

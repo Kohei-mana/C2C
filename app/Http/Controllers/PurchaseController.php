@@ -49,7 +49,6 @@ class PurchaseController extends Controller
         })->sum();
 
 
-
         return View('shopping-cart', compact('cart', 'sum'));
     }
 

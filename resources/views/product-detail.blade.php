@@ -61,49 +61,60 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-2/3 p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <div class="bg-red overflow-hidden shadow-sm sm:rounded-lg flex p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="p-6 text-gray-900 w-1/2">
-                    <div class="">
-                        <img src="../upload/{{ $product->image }}" class="w-80 border">
-                    </div>
+                    
+                    <img src="../upload/{{ $product->image }}" class="w-80 border">
                     
                 </div>
                 
-                <form method="GET" action="{{ route('add_to_cart', $product->id) }}" class="p-6 w-1/2">
-                <div class="text-center ">
-                    <div class="mb-2 border-b text-2xl">{{ $product->name }}</div>
-                    <div class="mb-2 border-b text-2xl">{{ $product->category_name }}</div>
-                    <div class="mb-2 border-b text-2xl">{{ $product->price }}</div>
-                    <div class="pb-4 mb-4 border-b">{{ $product->product_description }}</div>
-                </div>
-
-                <div class="mb-4">
-                    <p class="">数量</p>
-                    <input type="number" name="quantity" value=1 min=1 max='{{ $product->inventory }}' class="rounded">
-                </div>
-                <div class="flex mx-">
-                    @guest
-                        <x-secondary-button>{{ __('カートに追加') }}</x-secondary-button>
-
-                        <a href="{{ route('addfavorite', $product->id) }}" class="ml-2">
-                            <img src="{{asset('img/notnice.png')}}" height="30px" width="30px" class="ml-2">
-                        </a>
-                    @endguest   
-                    
-                    
-                    @auth
-                        <x-primary-button>{{ __('カートに追加') }}</x-primary-button>
-                        @if($favorite)
-                        <a href="{{ route('notfavorite', $product->id) }}" >
-                            <img src="{{asset('img/nicebutton.png')}}" height="30px" width="30px" class="ml-2">
-                        </a>
-                        @else
-                        <a href="{{ route('addfavorite', $product->id) }}" >
-                            <img src="{{asset('img/notnice.png')}}" height="30px" width="30px" class="ml-2">
-                        </a>
-                        @endif
-                    @endauth
+                <div class="p-6 w-1/2">
+               
+                    <div class="text-center ">
+                        <div class="mb-2 border-b text-2xl">{{ $product->name }}</div>
+                        <div class="mb-2 border-b text-2xl">{{ $product->category_name }}</div>
+                        <div class="mb-2 border-b text-2xl">¥{{ $product->price }}</div>
+                        <div class="pb-4 mb-4 border-b">{{ $product->product_description }}</div>
                     </div>
 
-                </form>
+                    
+                    <div class="flex justify-center">
+                        @guest
+                            <x-primary-button>{{ __('カートに追加') }}</x-primary-button>
+
+                            <a href="{{ route('addfavorite', $product->id) }}" class="ml-2">
+                                <img src="{{asset('img/notnice.png')}}" height="30px" width="30px" class="ml-2">
+                            </a>
+                        @endguest   
+                        
+                        
+                        @auth
+                            <form method="POST" action="{{ route('add_to_cart', $product->id) }}">
+                                @csrf
+                                <div class="mb-4 flex justify-center">
+                                    <p class="">数量：</p>
+                                    <input type="number" name="quantity" value=1 min=1 max='{{ $product->inventory }}' class="rounded h-6">
+                                </div>
+                                <x-primary-button class="ml-10">{{ __('カートに追加') }}</x-primary-button>
+                            </form>
+                            @if($favorite)
+                            <form method="POST" action="{{ route('notfavorite', $product->id) }}" class="">
+                                @csrf
+                                <button type="submit">
+                                    <img src="{{asset('img/nicebutton.png')}}" height="30px" width="30px" class="ml-2">
+                                </button>
+                            </form>
+                            @else
+                            <form method="POST" action="{{ route('addfavorite', $product->id) }}">
+                                @csrf
+                                <button type="submit">
+                                    <img src="{{asset('img/notnice.png')}}" height="30px" width="30px" class="ml-2">
+                                </button>
+                            </form>
+                            @endif
+                        @endauth
+
+                    </div>
+
+                </div>
                 
             </div>
         </div>
