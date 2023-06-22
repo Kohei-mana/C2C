@@ -33,6 +33,7 @@ class ExhibitRequest extends FormRequest
             'inventory',
             'description',
             'image'
+
         ];
     }
 }

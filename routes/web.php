@@ -22,22 +22,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ShowProducts::class, 'show'])
-    ->name('home');
-
-Route::get('/searched', [ShowProducts::class, 'search'])
-    ->name('search-product');
-
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['verified'])->name('dashboard');
-
-
-Route::middleware('auth')->group(function () {
-
     Route::get('/', [ShowProducts::class, 'show'])
         ->name('home');
 
@@ -46,6 +30,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
         ->name('product-detail');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['verified'])->name('dashboard');
+
+
+Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -66,19 +58,24 @@ Route::middleware('auth')->group(function () {
         ->name('product-detail');
 
     // // いいね
-    Route::get('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
-    Route::get('/product-detail/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
+    // Route::get('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
+    Route::post('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
+    Route::post('/product-detail/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
 
     //カートに追加
-    Route::get('/product-detail//{product}', [PurchaseController::class, 'addToCart'])
+
+    Route::post('/product-detail//{product}', [PurchaseController::class, 'addToCart'])
+
         ->name('add_to_cart');
 
     //カートに移動
     Route::get('/shopping_cart', [PurchaseController::class, 'shoppingCartPage'])
         ->name('shopping_cart');
     //カートから削除
-    Route::get('/shopping_cart/deleted', [PurchaseController::class, 'removeFromCart'])
+
+    Route::post('/shopping_cart/deleted', [PurchaseController::class, 'removeFromCart'])
         ->name('remove_from_cart');
+
 
     Route::get('/dashboard', function () {
         return view('dashboard');
