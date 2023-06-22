@@ -7,7 +7,7 @@
             </h2>
 
             <div class="mt-4">
-                <x-secondary-button class="text-2xl">
+                <x-secondary-button onclick="location.href='{{ route('home') }}'" class="text-2xl">
                     {{ __('ホームに戻る') }}
                 </x-secondary-button>
             </div>

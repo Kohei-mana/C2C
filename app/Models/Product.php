@@ -68,4 +68,9 @@ class Product extends Model
 
         $exhibit_product->save();
     }
+
+    public static function getCartProduct($product_id)
+    {
+        return self::find($product_id);
+    }
 }
