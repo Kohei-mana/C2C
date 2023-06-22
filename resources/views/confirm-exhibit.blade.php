@@ -1,5 +1,10 @@
 <x-app-layout>
-    <form method="GET" action="{{ route('complete-exhibit') }}" style="width: 50%;" class="max-w-md mx-auto">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight" align="center">
+            {{ __('出品内容確認') }}
+        </h2>
+    </x-slot>
+    <form method="POST" action="{{ route('complete-exhibit') }}" style="width: 50%;" class="max-w-md mx-auto mt-4">
         @csrf
 
         <div class="border-2 border-black">

@@ -9,9 +9,19 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ShowProducts;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    // Route::get('/', [ShowProducts::class, 'show'])
+    //     ->name('home');
+
+    // Route::get('/searched', [ShowProducts::class, 'search'])
+    //     ->name('search-product');
+
+    // Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+    // ->name('product-detail');
+
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -21,8 +31,6 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [RegisteredUserController::class, 'store'])
         ->name('register.store');
 
-    // Route::get('register', [RegisteredUserController::class, 'back'])
-    //     ->name('register.back');
 
     Route::post('confirm-userdata', [RegisteredUserController::class, 'confirmUserdataPage'])
         ->name('register.confirm-userdata');

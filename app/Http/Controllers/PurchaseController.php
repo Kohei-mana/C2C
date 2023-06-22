@@ -8,7 +8,6 @@ use App\Models\Selection;
 use App\Models\User;
 use App\Models\Product;
 use Illuminate\View\View;
-use PhpParser\Node\Expr\New_;
 use App\Models\Completion;
 
 class PurchaseController extends Controller
@@ -17,66 +16,75 @@ class PurchaseController extends Controller
     {
         $quantity = $request->quantity;
 
-        $cart = New Selection();
+        $cart = new Selection();
         $cart->all();
-       
-        if(!$cart->where('product_id', $product->id)->exists()) {
-            $cart->product_id=$product->id;
-            $cart->user_id=Auth::user()->id;
-            $cart->quantity=$quantity;
+
+
+        if (!$cart->where('product_id', $product->id)->exists()) {
+            $cart->product_id = $product->id;
+            $cart->user_id = Auth::user()->id;
+            $cart->quantity = $quantity;
             $cart->timestamps = false;
             $cart->save();
         } else {
-            
+
+            $cart->user_id = Auth::user()->id;
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
-        
+
         return back();
     }
 
-    public function shoppingCartPage():View
+    public function shoppingCartPage(): View
     {
-        
-        $cart = Selection::join('products', 'selections.product_id', '=', 'products.id')->get();
-        $cart->user_id=Auth::user()->id;
 
-        $sum = $cart->map(function($cart) { return $cart->price * $cart->quantity; })->sum();
+        $cart = Selection::select('*', 'selections.id as id')->join('products', 'selections.product_id', '=', 'products.id')->get();
+        $cart->user_id = Auth::user()->id;
 
-        
+
+        $sum = $cart->map(function ($cart) {
+            return $cart->price * $cart->quantity;
+        })->sum();
+
+
 
         return View('shopping-cart', compact('cart', 'sum'));
-
     }
 
     public function removeFromCart(Request $request)
     {
-        $id = $request->query('id');
-        $id = (integer) $id;
+
+        $user=Auth::user()->id;
+      
+        $productId = $request->query('id');
+
+        $productId = (integer) $productId;
 
         $cart = Selection::get();
-        // dd($cart);
-        $item = Selection::where('id', $id)->first();
-        // foreach($items as $item){
 
-        // }
-        dd($item);
+        $item = Selection::where('id', $productId)->first();
+        $cart->user_id=Auth::user()->id;
         
-        // $item->delete();
-        
-        $cart->join('products', 'selections.product_id', '=', 'products.id')->all();
+        $item->delete();
 
-        $sum = $cart->map(function($cart) { return $cart->price * $cart->quantity; })->sum();
-
-        
-        return View('shopping-cart', compact('cart', 'sum'));
+        return back();
     }
-
 
 
     public function inputShippingAddress(): View
     {
         return view('input-shipping-address');
+    }
+
+    public function inputPaymentInformation(): View
+    {
+        return view('input-payment-information');
+    }
+
+    public function store(): View
+    {
+        return view('complete-purchase');
     }
 
     public function showHistory()
@@ -89,5 +97,4 @@ class PurchaseController extends Controller
 
         return view('purchase_history', compact('completions'));
     }
-
 }

@@ -4,9 +4,9 @@
             {{ __('出品履歴') }}
             <div align="right">
 
-            <x-secondary-button onclick="location.href='{{ route('favorite') }}'">{{ __('いいね！一覧') }}</x-secondary-button>
-            <x-secondary-button onclick="location.href='{{ route('listing_history') }}'">{{ __('出品履歴') }}</x-secondary-button>
-            <x-secondary-button onclick="location.href='{{ route('purchase_history') }}'">{{ __('購入履歴') }}</x-secondary-button>
+                <x-secondary-button onclick="location.href='{{ route('favorite') }}'">{{ __('いいね！一覧') }}</x-secondary-button>
+                <x-secondary-button onclick="location.href='{{ route('listing_history') }}'">{{ __('出品履歴') }}</x-secondary-button>
+                <x-secondary-button onclick="location.href='{{ route('purchase_history') }}'">{{ __('購入履歴') }}</x-secondary-button>
 
             </div>
         </h2>
@@ -18,7 +18,7 @@
             @foreach($exhibit_products as $exhibit_product)
             <a href="{{ route('exhibition-product', ['id'=>$exhibit_product->id]) }}" class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                 <div class="mx-auto" style="display: flex;" align=center>
-                    <img src="upload/{{$exhibit_product->image}}" width="200">
+                    <img src="../upload/{{$exhibit_product->image}}" width="200">
                     <div>
                         <div>{{$exhibit_product->name}}</div>
                         <div>¥{{$exhibit_product->price}}</div>

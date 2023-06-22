@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight" align="center">
+            {{ __('出品登録') }}
+        </h2>
+    </x-slot>
     <form method="POST" action="{{ route('confirm-exhibit') }}" enctype="multipart/form-data" style="width: 40%;" class="mx-auto">
         @csrf
 
