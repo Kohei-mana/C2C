@@ -56,6 +56,7 @@ class Product extends Model
         ->join('categories', 'products.category_id', '=', 'categories.id')
         ->where('listing_status', 0)
         ->where('inventory', '>=', 1)
+        ->orderBy('id', 'desc')
         ->simplePaginate(20);
     }
 
