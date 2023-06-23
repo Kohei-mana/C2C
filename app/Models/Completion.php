@@ -28,6 +28,7 @@ class Completion extends Model
     {
         return self::whereHas('order', function ($q) {
             $q->where('user_id', Auth::id());
+            $q->orderBy('created_at', 'asc');
         })
             ->with(['order', 'product'])
             ->get();
