@@ -38,26 +38,16 @@
 
     <div style="width: 50%; margin-top: 4%; margin-left: auto; margin-right: auto;">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg flex justify-between">
+                <x-setting-button class="mr-6" onclick="location.href='{{ route('update-email-page') }}'">{{ __('メールアドレス変更') }}</x-setting-button>
+                <x-setting-button onclick="location.href='{{ route('update-password-page') }}'">{{ __('パスワード変更') }}</x-setting-button>
+                <x-setting-button class="ml-6" onclick="location.href='{{ route('update-address-page') }}'">{{ __('住所変更') }}</x-setting-button>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-address-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+                <div>
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>

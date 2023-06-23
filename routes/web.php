@@ -39,7 +39,16 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/update-address', [ProfileController::class, 'updateAddressPage'])->name('update-address-page');
+    Route::patch('/update-address', [ProfileController::class, 'updateAddress'])->name('update-address');
+
+    Route::get('/update-password', [ProfileController::class, 'updatePasswordPage'])->name('update-password-page');
+    Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+
+    Route::get('/update-email', [ProfileController::class, 'updateEmailPage'])->name('update-email-page');
+    Route::post('/update-email', [ProfileController::class, 'updateEmail'])->name('update-email');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/favorite', [FavoriteController::class, 'showFavoriteProducts'])->name('favorite');

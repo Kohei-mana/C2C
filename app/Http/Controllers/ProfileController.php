@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UpdateAddressRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,40 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
+    //住所変更
+    public function updateAddressPage()
+    {
+        return view('profile.update-address');
+    }
+
+    public function updateAddress(UpdateAddressRequest $request)
+    {
+        $request->user()->fill($request->validated());
+        $request->user()->save();
+
+        return view('profile.edit');
+    }
+
+    //パスワード変更
+    public function updatePasswordPage()
+    {
+        return view('profile.update-password');
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $request->user()->fill($request->validated());
+        $request->user()->save();
+
+        return view('profile.edit');
+    }
+
+    //メールアドレス変更
+    public function updateEmailPage()
+    {
+        return view('profile.update-email');
+    }
+
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
