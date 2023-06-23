@@ -35,7 +35,6 @@ class Selection extends Model
     public static function getSumInACart()
     {
         $productInACart = self::getProductsInACart();
-        // dd($productInACart);
         return $productInACart
         ->map(function ($productInACart) {
             return $productInACart->price * $productInACart->quantity;
@@ -48,6 +47,7 @@ class Selection extends Model
         
         $productId = (integer) $productId;
         self::getProductsInACart()->where('id', $productId)->first()->delete();
+    }
 
     public static function getCartProducts($id)
     {

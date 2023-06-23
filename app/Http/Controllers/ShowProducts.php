@@ -37,7 +37,6 @@ class ShowProducts extends Controller
         // $quantity = New Selection();
         $quantity->get('quantity');
 
-        dd($quantity);
         
         //もしログイン状態なら
         $login = Auth::check();
