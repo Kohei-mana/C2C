@@ -48,7 +48,19 @@ class Order extends Model
                 ]);
 
                 $completion->save();
+
+                $product = Product::find($productId);
+                $product->inventory = $product->inventory - $data['quantity'][$key];
+                if ($product->inventory == 0) {
+                    $product->listing_status = 1;
+                } else {
+                    $product->listing_status = 0;
+                }
+                $product->save();
             }
+
+            $selection = Selection::where('user_id', Auth::id());
+            $selection->delete();
 
             return $order;
         });

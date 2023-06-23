@@ -109,7 +109,6 @@ class PurchaseController extends Controller
             return $product_quantity[$key] * $product_price[$key];
         });
 
-
         $data = [
             'card_number' => $request->card_number,
             'expiration_month' => $request->expiration_month,
@@ -142,7 +141,7 @@ class PurchaseController extends Controller
                 ->withInput();
         }
 
-        $order = Order::createOrder($data);
+        Order::createOrder($data);
 
         $request->session()->forget($purchase_request->attributes());
 

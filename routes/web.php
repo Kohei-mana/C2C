@@ -22,14 +22,14 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-    Route::get('/', [ShowProducts::class, 'show'])
-        ->name('home');
+Route::get('/', [ShowProducts::class, 'show'])
+    ->name('home');
 
-    Route::get('/searched', [ShowProducts::class, 'search'])
-        ->name('search-product');
+Route::get('/searched', [ShowProducts::class, 'search'])
+    ->name('search-product');
 
-    Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
-        ->name('product-detail');
+Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+    ->name('product-detail');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/listing_history', [ExhibitController::class, 'showAll'])->name('listing_history');
     Route::get('/exhibition-product/{id}', [ExhibitController::class, 'showSpecific'])->name('exhibition-product');
-    Route::post('/update-listing/{id}', [ExhibitController::class, 'updateListing'])->name('updateListing');
+    Route::post('/exhibition-product/{id}', [ExhibitController::class, 'updateListing'])->name('updateListing');
 
     Route::get('/purchase_history', [PurchaseController::class, 'showHistory'])->name('purchase_history');
 

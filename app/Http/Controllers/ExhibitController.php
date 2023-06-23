@@ -55,7 +55,7 @@ class ExhibitController extends Controller
                 ->withInput();
         }
 
-        $product = Product::createProduct($data);
+        Product::createProduct($data);
 
 
         $request->session()->forget($exhibit_request->attributes());
