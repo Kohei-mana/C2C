@@ -20,57 +20,46 @@ class PurchaseController extends Controller
     {
         $quantity = $request->quantity;
 
+        $user_id = Auth::user()->id;
         $cart = new Selection();
         $cart->all();
+        // dd($cart);
 
-
-        if (!$cart->where('product_id', $product->id)->exists()) {
+        if (!$cart->where('product_id', $product->id)->where('user_id', $user_id)->exists()) {
+            // dd($cart);
             $cart->product_id = $product->id;
             $cart->user_id = Auth::user()->id;
             $cart->quantity = $quantity;
             $cart->timestamps = false;
             $cart->save();
         } else {
-
+            // dd($cart);
             $cart->user_id = Auth::user()->id;
-
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
 
         return back();
+        // $productsInACart = Selection::getProductsInACart();
+        // $sum = Selection::getSumInACart();
+
+        // return View('shopping-cart', compact('productsInACart', 'sum'));
     }
 
     public function shoppingCartPage(): View
     {
+        $productsInACart = Selection::getProductsInACart();
+        $sum = Selection::getSumInACart();
 
-        $cart = Selection::select('*', 'selections.id as id')->join('products', 'selections.product_id', '=', 'products.id')->get();
-        $cart->user_id = Auth::user()->id;
-
-
-        $sum = $cart->map(function ($cart) {
-            return $cart->price * $cart->quantity;
-        })->sum();
-
-
-        return View('shopping-cart', compact('cart', 'sum'));
+        return View('shopping-cart', compact('productsInACart', 'sum'));
     }
 
     public function removeFromCart(Request $request)
     {
 
-        $user = Auth::user()->id;
-
-        $productId = $request->query('id');
-
-        $productId = (int) $productId;
-
-        $cart = Selection::get();
-
-        $item = Selection::where('id', $productId)->first();
-        $cart->user_id = Auth::user()->id;
-
-        $item->delete();
+      
+        Selection::deleteProductFromCart($request);
+    
 
         return back();
     }

@@ -22,6 +22,13 @@ class Category extends Model
         return self::orderBy('id', 'asc')->pluck('category_name', 'id')->prepend('選択', '');
     }
 
+    public static function getCategories()
+    {
+        return self::
+        select('id', 'category_name')
+        ->get();
+    }
+
     public static function getCategoryName($category_id)
     {
         return self::find($category_id)->category_name;
