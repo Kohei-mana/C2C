@@ -65,9 +65,13 @@
                     
                     <div class="flex justify-center">
                         @guest
-                            <x-primary-button>{{ __('カートに追加') }}</x-primary-button>
+                            <div class="mb-4 flex justify-center">
+                                <p class="">数量：</p>
+                                <input type="number" name="quantity" value=1 min=0 max='{{ $product->inventory }}' class="rounded h-6">
+                            </div>
+                            <x-secondary-button class="ml-10" onclick="location.href='{{ route('login') }}'">{{ __('カートに追加') }}</x-secondary-button>
 
-                            <a href="{{ route('addfavorite', $product->id) }}" class="ml-2">
+                            <a href="{{ route('login') }}" class="ml-2">
                                 <img src="{{asset('img/notnice.png')}}" height="30px" width="30px" class="ml-2">
                             </a>
                         @endguest   
@@ -100,9 +104,7 @@
                         @endauth
 
                     </div>
-
                 </div>
-                
             </div>
         </div>
     </div>

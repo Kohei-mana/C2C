@@ -33,9 +33,9 @@ class ShowProducts extends Controller
 
         $product = Product::getselectedProduct($id);
 
-        $quantity = Selection::select('quantity')->where('product_id', $id)->where('user_id', auth()->user()->id)->get('quantity');
+        // $quantity = Selection::select('quantity')->where('product_id', $id)->where('user_id', auth()->user()->id)->get('quantity');
         // $quantity = New Selection();
-        $quantity->get('quantity');
+        // $quantity->get('quantity');
 
         
         //もしログイン状態なら
@@ -48,7 +48,7 @@ class ShowProducts extends Controller
             $favorite = null;
         }
         
-        return View('product-detail', compact('product', 'favorite', 'quantity'));
+        return View('product-detail', compact('product', 'favorite'));
     }
 
     public function search(Request $request): View
