@@ -16,30 +16,38 @@ class PurchaseController extends Controller
     {
         $quantity = $request->quantity;
 
+        $user_id = Auth::user()->id;
         $cart = new Selection();
         $cart->all();
+        // dd($cart);
 
-        if (!$cart->where('product_id', $product->id)->exists()) {
+        if (!$cart->where('product_id', $product->id)->where('user_id', $user_id)->exists()) {
+            // dd($cart);
             $cart->product_id = $product->id;
             $cart->user_id = Auth::user()->id;
             $cart->quantity = $quantity;
             $cart->timestamps = false;
             $cart->save();
         } else {
+            // dd($cart);
             $cart->user_id = Auth::user()->id;
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
 
         return back();
+        // $productsInACart = Selection::getProductsInACart();
+        // $sum = Selection::getSumInACart();
+
+        // return View('shopping-cart', compact('productsInACart', 'sum'));
     }
 
     public function shoppingCartPage(): View
     {
-        $cart = Selection::getProductsInACart();
+        $productsInACart = Selection::getProductsInACart();
         $sum = Selection::getSumInACart();
 
-        return View('shopping-cart', compact('cart', 'sum'));
+        return View('shopping-cart', compact('productsInACart', 'sum'));
     }
 
     public function removeFromCart(Request $request)

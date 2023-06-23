@@ -52,8 +52,10 @@ class Product extends Model
     {
         //出品中のすべての商品データを取得
         return self::
-        select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'categories.category_name as category_name')
+        select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'listing_status', 'categories.category_name as category_name')
         ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->where('listing_status', 0)
+        ->where('inventory', '>=', 1)
         ->simplePaginate(20);
     }
 

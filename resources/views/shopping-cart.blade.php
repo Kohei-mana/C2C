@@ -6,7 +6,7 @@
     </x-slot>
 
         <div style="width: 60%; margin-top: 4%; margin-left: auto; margin-right: auto;">
-            @foreach($cart as $cart_product)
+            @foreach($productsInACart as $cart_product)
             <form action="{{ Route('remove_from_cart', ['id'=>$cart_product->id]) }}" method="POST">
                 <div class="p-4 mt-4 sm:p-8 bg-white shadow sm:rounded-lg flex">
                 @csrf

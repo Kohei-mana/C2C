@@ -21,10 +21,6 @@ class FavoriteController extends Controller
         $favorite->save();
         return back();
 
-        // $favorite = Favorite::getFavorite($product);
-        // $favorite->timestamps = false;
-        // $favorite->save();
-        // return back();
     }
 
     public function removeFavorite(Product $product){
@@ -34,7 +30,6 @@ class FavoriteController extends Controller
 
         //もしログイン状態なら、
         $login = Auth::check();
-        
         if($login){
             $favorite = Favorite::getFavorite($product);
         } else {

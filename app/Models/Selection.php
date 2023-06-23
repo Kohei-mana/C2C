@@ -29,6 +29,7 @@ class Selection extends Model
         ->where('selections.user_id', $user_id)
         ->get();
     }
+    
 
     public static function getSumInACart()
     {

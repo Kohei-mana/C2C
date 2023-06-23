@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Favorite;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Selection;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\New_;
 
 // use app/Models/Category.php;
 
@@ -33,6 +32,12 @@ class ShowProducts extends Controller
     {
 
         $product = Product::getselectedProduct($id);
+
+        $quantity = Selection::select('quantity')->where('product_id', $id)->where('user_id', auth()->user()->id)->get('quantity');
+        // $quantity = New Selection();
+        $quantity->get('quantity');
+
+        dd($quantity);
         
         //もしログイン状態なら
         $login = Auth::check();
@@ -44,7 +49,7 @@ class ShowProducts extends Controller
             $favorite = null;
         }
         
-        return View('product-detail', compact('product', 'favorite'));
+        return View('product-detail', compact('product', 'favorite', 'quantity'));
     }
 
     public function search(Request $request): View
