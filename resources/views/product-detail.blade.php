@@ -67,7 +67,8 @@
                         @guest
                             <div class="mb-4 flex justify-center">
                                 <p class="">数量：</p>
-                                <input type="number" name="quantity" value=1 min=0 max='{{ $product->inventory }}' class="rounded h-6">
+                                
+                                <input type="number" name="quantity" value=0 min=0 max='{{ $product->inventory - $quantity }}' class="rounded h-6">
                             </div>
                             <x-secondary-button class="ml-10" onclick="location.href='{{ route('login') }}'">{{ __('カートに追加') }}</x-secondary-button>
 
@@ -82,7 +83,7 @@
                                 @csrf
                                 <div class="mb-4 flex justify-center">
                                     <p class="">数量：</p>
-                                    <input type="number" name="quantity" value=1 min=0 max='{{ $product->inventory }}' class="rounded h-6">
+                                    <input type="number" name="quantity" value=0 min=0 max='{{ $product->inventory - $quantity }}' class="rounded h-6">
                                 </div>
                                 <x-primary-button class="ml-10">{{ __('カートに追加') }}</x-primary-button>
                             </form>

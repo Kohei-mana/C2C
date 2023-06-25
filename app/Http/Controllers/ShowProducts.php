@@ -33,11 +33,13 @@ class ShowProducts extends Controller
 
         $product = Product::getselectedProduct($id);
 
-        // $quantity = Selection::select('quantity')->where('product_id', $id)->where('user_id', auth()->user()->id)->get('quantity');
-        // $quantity = New Selection();
-        // $quantity->get('quantity');
-
+        //選択した商品がいま使っているユーザーのカート内にはいっているかどうか。
+        $productInACart = Selection::select('*')->where('product_id', $id)->where('user_id', auth()->user()->id)->first();
+        //もしカート内にあれば数量を代入
+        //
+        $quantity = $productInACart ? $productInACart->quantity : 0;
         
+
         //もしログイン状態なら
         $login = Auth::check();
 
@@ -48,7 +50,7 @@ class ShowProducts extends Controller
             $favorite = null;
         }
         
-        return View('product-detail', compact('product', 'favorite'));
+        return View('product-detail', compact('product', 'favorite', 'quantity'));
     }
 
     public function search(Request $request): View
