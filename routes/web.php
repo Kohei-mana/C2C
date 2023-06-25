@@ -54,9 +54,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/confirm-exhibit', [ExhibitController::class, 'confirm'])->name('confirm-exhibit');
     Route::post('/complete-exhibit', [ExhibitController::class, 'store'])->name('complete-exhibit');
 
-    // Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
-    //     ->name('product-detail');
-
     // // いいね
     // Route::get('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
     Route::post('/product-detail/favorite/{product}', [FavoriteController::class, 'makeFavorite'])->name('addfavorite');
@@ -65,7 +62,6 @@ Route::middleware('auth')->group(function () {
     //カートに追加
 
     Route::post('/product-detail//{product}', [PurchaseController::class, 'addToCart'])
-
         ->name('add_to_cart');
 
     //カートに移動

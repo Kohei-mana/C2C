@@ -34,17 +34,24 @@ class ShowProducts extends Controller
         $product = Product::getselectedProduct($id);
 
         //選択した商品がいま使っているユーザーのカート内にはいっているかどうか。
-        $productInACart = Selection::select('*')->where('product_id', $id)->where('user_id', auth()->user()->id)->first();
+        
         //もしカート内にあれば数量を代入
         //
-        $quantity = $productInACart ? $productInACart->quantity : 0;
         
 
         //もしログイン状態なら
         $login = Auth::check();
 
+        if($login){
+            $productInACart = Selection::select('*')->where('product_id', $id)->where('user_id', auth()->user()->id)->first();
+            $quantity = $productInACart ? $productInACart->quantity : 0;
+        } else { 
+            $quantity = 0;
+        }
+
         //TODO[いいねしているかどうかをbooleanに直す]
         if($login){
+            
             $favorite = Favorite::where('product_id', $product->id)->where('user_id', auth()->user()->id)->first();
         } else {
             $favorite = null;
