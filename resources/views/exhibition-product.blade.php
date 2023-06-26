@@ -9,13 +9,14 @@
             </div>
         </h2>
     </x-slot>
-
-    <div style="width: 60%; margin-top: 5%; margin-left: auto; margin-right: auto;">
-        <div class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-            <div style="font-size: 25px; font-weight: 600; display: flex; align-items: center; justify-content: center;">
-                <img src="../upload/{{$exhibit_product->image}}" width="300">
-                <div style="margin-left: 2rem;">
-                    <div>{{$exhibit_product->name}}</div>
+    <div style="width: 100%; display: flex; justify-content: center; margin-top: 5%;">
+        <div style="width: 45%; display: flex; align-items: center; justify-content: space-between; background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <div style="flex: 2; padding: 3rem;">
+                <img src="../upload/{{$exhibit_product->image}}" width="250">
+            </div>
+            <div class="text-center" style="flex: 2; padding: 4rem;">
+                <div style="font-size: 30px; font-weight: 600;">{{$exhibit_product->name}}</div>
+                <div style="font-size: 20px; font-weight: 600;">
                     <div>¥{{$exhibit_product->price}}</div>
                     <div>{{$exhibit_product->inventory}}点</div>
                     <div>
@@ -42,5 +43,4 @@
             </div>
         </div>
     </div>
-
 </x-app-layout>
