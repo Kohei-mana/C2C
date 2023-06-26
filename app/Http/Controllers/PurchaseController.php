@@ -24,8 +24,9 @@ class PurchaseController extends Controller
         $cart = new Selection();
         $cart->all();
 
+        // カート内数量が在庫数量最大の場合、エラーメッセージを表示
         if($quantity==0) {
-            return back()->with('error_message', '数量を選択してください');
+            return back()->with('error_message', 'これ以上追加できません');
         }
 
         if (!$cart->where('product_id', $product->id)->where('user_id', $user_id)->exists()) {
@@ -82,7 +83,6 @@ class PurchaseController extends Controller
     {
         $id = Auth::id();
         $cart = Selection::getCartProducts($id);
-
         $sum_price = Selection::sumPrice($cart);
         $sum_quantity = Selection::sumQuantity($cart);
         $product_id = Selection::getProductIdsFromCart($cart);
