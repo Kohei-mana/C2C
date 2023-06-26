@@ -14,7 +14,7 @@ use PhpParser\Node\Expr\New_;
 
 // use app/Models/Category.php;
 
-class ShowProducts extends Controller
+class ShowProductsController extends Controller
 {
     //
     public function show(Request $request): View
@@ -85,3 +85,4 @@ class ShowProducts extends Controller
     }
 
 }
+

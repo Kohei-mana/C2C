@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ShowProducts;
+use App\Http\Controllers\ShowProductsController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ExhibitController;
 use App\Http\Controllers\PurchaseController;
@@ -22,13 +22,13 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [ShowProducts::class, 'show'])
+Route::get('/', [ShowProductsController::class, 'show'])
     ->name('home');
 
-Route::get('/searched', [ShowProducts::class, 'search'])
+Route::get('/searched', [ShowProductsController::class, 'search'])
     ->name('search-product');
 
-Route::get('/product-detail/{id}', [ShowProducts::class, 'showDetail'])
+Route::get('/product-detail/{id}', [ShowProductsController::class, 'showDetail'])
     ->name('product-detail');
 
 Route::get('/dashboard', function () {
@@ -60,7 +60,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/product-detail/notfavorite/{product}', [FavoriteController::class, 'removeFavorite'])->name('notfavorite');
 
     //カートに追加
-
     Route::post('/product-detail//{product}', [PurchaseController::class, 'addToCart'])
         ->name('add_to_cart');
 
