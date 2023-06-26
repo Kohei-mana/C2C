@@ -33,12 +33,6 @@ class ShowProductsController extends Controller
 
         $product = Product::getselectedProduct($id);
 
-        //選択した商品がいま使っているユーザーのカート内にはいっているかどうか。
-        
-        //もしカート内にあれば数量を代入
-        //
-        
-
         //もしログイン状態なら
         $login = Auth::check();
 

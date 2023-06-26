@@ -28,6 +28,7 @@ class Selection extends Model
         select('*', 'selections.id as id')
         ->join('products', 'selections.product_id', '=', 'products.id')
         ->where('selections.user_id', $user_id)
+        ->where('listing_status', '=', 0)
         ->get();
     }
     

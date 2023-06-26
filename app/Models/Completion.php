@@ -32,5 +32,6 @@ class Completion extends Model
         })
             ->with(['order', 'product'])
             ->get();
+
     }
 }

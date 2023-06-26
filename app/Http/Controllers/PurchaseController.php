@@ -41,10 +41,6 @@ class PurchaseController extends Controller
         }
 
         return back()->with('sucsess_message', 'カートに追加しました');
-        // $productsInACart = Selection::getProductsInACart();
-        // $sum = Selection::getSumInACart();
-
-        // return View('shopping-cart', compact('productsInACart', 'sum'));
     }
 
     public function shoppingCartPage(): View
