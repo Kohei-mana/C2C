@@ -52,7 +52,7 @@ class Product extends Model
     {
         //出品中のすべての商品データを取得
         return self::
-        select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'listing_status', 'categories.category_name as category_name')
+        select('products.id','user_id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'listing_status', 'categories.category_name as category_name')
         ->join('categories', 'products.category_id', '=', 'categories.id')
         ->where('listing_status', 0)
         ->where('inventory', '>=', 1)
@@ -64,7 +64,7 @@ class Product extends Model
     {
         //クリックした商品のデータを取得
         return self::
-        select('products.id', 'products.name', 'products.image', 'products.price', 'products.product_description', 'products.inventory','categories.category_name as category_name')
+        select('products.id', 'products.user_id', 'products.name', 'products.image', 'products.price', 'products.product_description', 'products.inventory','categories.category_name as category_name')
         ->join('categories', 'products.category_id', '=', 'categories.id')
         ->where('products.id', $id)
         ->first();

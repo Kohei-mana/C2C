@@ -23,27 +23,25 @@ class PurchaseController extends Controller
         $user_id = Auth::user()->id;
         $cart = new Selection();
         $cart->all();
-        // dd($cart);
+
+
+        // カート内数量が在庫数量最大の場合、エラーメッセージを表示
+        if($quantity==0) {
+            return back()->with('error_message', 'これ以上追加できません');
+        }
 
         if (!$cart->where('product_id', $product->id)->where('user_id', $user_id)->exists()) {
-            // dd($cart);
             $cart->product_id = $product->id;
             $cart->user_id = Auth::user()->id;
             $cart->quantity = $quantity;
             $cart->timestamps = false;
             $cart->save();
         } else {
-            // dd($cart);
             $cart->user_id = Auth::user()->id;
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
-
-        return back();
-        // $productsInACart = Selection::getProductsInACart();
-        // $sum = Selection::getSumInACart();
-
-        // return View('shopping-cart', compact('productsInACart', 'sum'));
+        return back()->with('sucsess_message', 'カートに追加しました');
     }
 
     public function shoppingCartPage(): View
@@ -87,7 +85,6 @@ class PurchaseController extends Controller
     {
         $id = Auth::id();
         $cart = Selection::getCartProducts($id);
-
         $sum_price = Selection::sumPrice($cart);
         $sum_quantity = Selection::sumQuantity($cart);
         $product_id = Selection::getProductIdsFromCart($cart);

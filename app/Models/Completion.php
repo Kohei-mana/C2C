@@ -30,6 +30,7 @@ class Completion extends Model
             $q->where('user_id', Auth::id());
         })
             ->with(['order', 'product'])
+
             ->get()
             ->sort(function ($first, $second) {
                 return $first->order->created_at < $second->order->created_at ? 1 : -1;

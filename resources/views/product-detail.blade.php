@@ -159,7 +159,7 @@
                             <form action="">
                                 <div class="mb-4 flex justify-center">
                                     <p class="">数量：</p>
-                                    <input type="number" name="quantity" value=0 min=0 max='0' class="rounded h-6">
+                                    <input type="number" name="quantity" value=1 min=0 max='0' class="rounded h-6">
                                 </div>
                                 <x-secondary-button class="ml-10" onclick="location.href='{{ route('login') }}'">{{ __('カートに追加') }}</x-secondary-button>
                             </form>
@@ -177,7 +177,11 @@
                                 @csrf
                                 <div class="mb-4 flex justify-center">
                                     <p class="">数量：</p>
+                                    @if($product->inventory - $quantity == 0)
                                     <input type="number" name="quantity" value=0 min=0 max='{{ $product->inventory - $quantity }}' class="rounded h-6">
+                                    @else
+                                    <input type="number" name="quantity" value=1 min=1 max='{{ $product->inventory - $quantity }}' class="rounded h-6">
+                                    @endif
                                 </div>
                                 <x-primary-button class="ml-10">{{ __('カートに追加') }}</x-primary-button>
                             </form>

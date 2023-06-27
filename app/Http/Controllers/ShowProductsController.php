@@ -22,6 +22,8 @@ class ShowProductsController extends Controller
         $products = Product::getShowProducts();
         $categories = Category::getCategories();
 
+        // $exhibit_product = Product::getProduct($id);
+
         $searchWord = $request->searchWord;
         $categoryId = $request->categoryId;
 
@@ -31,13 +33,12 @@ class ShowProductsController extends Controller
     public function showDetail($id): View
     {
 
-        $product = Product::getselectedProduct($id);
+        $product = Product::getSelectedProduct($id);
 
-        //選択した商品がいま使っているユーザーのカート内にはいっているかどうか。
-        
-        //もしカート内にあれば数量を代入
-        //
-        
+        if($product->user_id == Auth::user()->id) {
+            $exhibit_product = Product::getProduct($id);
+            return view('exhibition-product', compact('exhibit_product'));
+        }
 
         //もしログイン状態なら
         $login = Auth::check();
@@ -51,7 +52,6 @@ class ShowProductsController extends Controller
 
         //TODO[いいねしているかどうかをbooleanに直す]
         if($login){
-            
             $favorite = Favorite::where('product_id', $product->id)->where('user_id', auth()->user()->id)->first();
         } else {
             $favorite = null;
