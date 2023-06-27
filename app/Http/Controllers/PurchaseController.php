@@ -24,6 +24,7 @@ class PurchaseController extends Controller
         $cart = new Selection();
         $cart->all();
 
+
         // カート内数量が在庫数量最大の場合、エラーメッセージを表示
         if($quantity==0) {
             return back()->with('error_message', 'これ以上追加できません');
@@ -40,7 +41,6 @@ class PurchaseController extends Controller
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
-
         return back()->with('sucsess_message', 'カートに追加しました');
     }
 
@@ -55,8 +55,10 @@ class PurchaseController extends Controller
     public function removeFromCart(Request $request)
     {
 
+
         Selection::deleteProductFromCart($request);
-    
+
+
         return back();
     }
 

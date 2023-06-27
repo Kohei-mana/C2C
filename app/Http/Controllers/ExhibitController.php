@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ExhibitRequest;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -75,7 +76,9 @@ class ExhibitController extends Controller
     public function showSpecific($id)
     {
         $exhibit_product = Product::getProduct($id);
-        return view('exhibition-product', compact('exhibit_product'));
+        $buyer_addresses = Order::getBuyers($id);
+
+        return view('exhibition-product', compact('exhibit_product', 'buyer_addresses'));
     }
 
     public function updateListing($id)

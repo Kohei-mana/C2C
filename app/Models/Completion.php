@@ -26,12 +26,15 @@ class Completion extends Model
 
     public static function getPurchaseProducts()
     {
-        return self::whereHas('order', function ($q) {
+        $result = self::whereHas('order', function ($q) {
             $q->where('user_id', Auth::id());
-            $q->orderBy('created_at', 'desc');
         })
             ->with(['order', 'product'])
-            ->get();
 
+            ->get()
+            ->sort(function ($first, $second) {
+                return $first->order->created_at < $second->order->created_at ? 1 : -1;
+            });
+        return $result;
     }
 }
