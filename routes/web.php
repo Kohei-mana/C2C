@@ -38,6 +38,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('verified')->group(function () {
 
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
     Route::get('/edit-address', [ProfileController::class, 'editAddress'])->name('edit-address');

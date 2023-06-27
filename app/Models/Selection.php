@@ -97,4 +97,9 @@ class Selection extends Model
         });
 
     }
+
+    public static function getSelectedProductInACart($id) {
+        return self::select('*')->where('product_id', $id)->first();
+        
+    }
 }
