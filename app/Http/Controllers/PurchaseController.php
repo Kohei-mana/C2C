@@ -136,8 +136,12 @@ class PurchaseController extends Controller
 
     public function showHistory()
     {
+        $user_id = Auth::user()->id;
+        $orders = Order::select('id', 'sum_quantity', 'sum_price', 'created_at')->where('user_id', '=', $user_id)->orderBy('created_at', 'desc')->get();
+        
         $completions = Completion::getPurchaseProducts();
+        // dd($completions);
 
-        return view('purchase_history', compact('completions'));
+        return view('purchase_history', compact('orders', 'completions'));
     }
 }
