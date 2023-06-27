@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
     })->middleware(['verified'])->name('dashboard');
 
     Route::get('/input-shipping-address', [PurchaseController::class, 'inputShippingAddress'])->name('input-shipping-address');
-    Route::post('/input-payment-information', [PurchaseController::class, 'inputPaymentInformation'])->name('input-payment-information');
+    Route::match(['get', 'post'], '/input-payment-information', [PurchaseController::class, 'inputPaymentInformation'])->name('input-payment-information');
     Route::post('/confirm-purchase', [PurchaseController::class, 'confirm'])->name('confirm-purchase');
     Route::post('/complete-purchase', [PurchaseController::class, 'store'])->name('complete-purchase');
 });
