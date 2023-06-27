@@ -10,7 +10,7 @@
         </h2>
     </x-slot>
 
-    <div style="width: 50%; margin-top: 5%; margin-left: auto; margin-right: auto;">
+    <div style="width: 40%; margin-top: 5%; margin-left: auto; margin-right: auto;">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="border-2 border-black">
                 <div class="border-b-2 border-black h-8">
@@ -36,28 +36,17 @@
         </div>
     </div>
 
-    <div style="width: 50%; margin-top: 4%; margin-left: auto; margin-right: auto;">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
+    <div style="width: 40%; margin-top: 4%; margin-left: auto; margin-right: auto;">
+        <div class="mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="flex justify-center">
+                <x-edit-button onclick="location.href='{{ route('edit-email') }}'">{{ __('メールアドレス変更') }}</x-edit-button>
+                <span style="margin-right: 30px;"></span>
+                <x-edit-button onclick="location.href='{{ route('edit-password') }}'">{{ __('パスワード変更') }}</x-edit-button>
+                <span style="margin-right: 30px;"></span>
+                <x-edit-button onclick="location.href='{{ route('edit-address') }}'">{{ __('氏名・住所変更') }}</x-edit-button>
             </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-address-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+            <div class="sm:p-4 bg-white shadow sm:rounded-lg">
+                <div>
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>

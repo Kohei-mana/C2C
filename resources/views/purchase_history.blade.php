@@ -13,7 +13,7 @@
     @foreach($orders as $order)
     <div class="mt-7 mx-auto font-semibold" style="width: 35%;">
         <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-5">
-            
+
             <div class="text-center">購入日時：{{ $order->created_at }}</div>
             @foreach($completions as $completion)
             @if($order->id == $completion->order_id)
@@ -30,9 +30,9 @@
             </div>
             @endif
             @endforeach
-            <div class="text-right">合計金額：{{ $order->sum_price }}</div>
+            <div class="text-right">合計：¥{{ $order->sum_price }}</div>
         </div>
     </div>
     @endforeach
-    
+
 </x-app-layout>

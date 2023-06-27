@@ -7,12 +7,12 @@
 
     <div style="width: 50%; margin-top: auto; margin-left: auto; margin-right: auto;">
         @foreach($cart as $cart_product)
-        <div class="p-3 mt-5 sm:p-7 bg-white shadow sm:rounded-lg flex text-2xl font-semibold flex-row items-center justify-center">
+        <div class="p-3 mt-5 sm:p-7 bg-white shadow sm:rounded-lg flex font-semibold flex-row items-center justify-center">
             <img class="border h-30 w-40" src="upload/{{$cart_product->image}}">
-            <div class="ml-6">{{$cart_product->name}}</div>
-            <div class="ml-6">¥{{$cart_product->price}}</div>
-            <div class="ml-6">{{$cart_product->quantity}}点</div>
-            <div class="ml-6">¥{{ $subtotal = $cart_product->price * $cart_product->quantity }}</div>
+            <div class="ml-6 text-2xl">{{$cart_product->name}}</div>
+            <div class="ml-6 text-xl">¥{{$cart_product->price}}</div>
+            <div class="ml-6 text-xl">{{$cart_product->quantity}}点</div>
+            <div class="ml-6 text-xl">¥{{ $subtotal = $cart_product->price * $cart_product->quantity }}</div>
         </div>
 
 

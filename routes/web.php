@@ -36,10 +36,20 @@ Route::get('/dashboard', function () {
 })->middleware(['verified'])->name('dashboard');
 
 
-Route::middleware(['verified'])->group(function () {
+Route::middleware('verified')->group(function () {
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/edit-address', [ProfileController::class, 'editAddress'])->name('edit-address');
+    Route::patch('/edit-address', [ProfileController::class, 'updateAddress'])->name('update-address');
+
+    Route::get('/edit-password', [ProfileController::class, 'editPassword'])->name('edit-password');
+    Route::put('/edit-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+
+    Route::get('/edit-email', [ProfileController::class, 'editEmail'])->name('edit-email');
+    Route::patch('/edit-email', [ProfileController::class, 'updateEmail'])->name('update-email');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/favorite', [FavoriteController::class, 'showFavoriteProducts'])->name('favorite');
