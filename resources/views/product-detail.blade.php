@@ -117,7 +117,7 @@
 @endauth
 
 @if(session('error_message'))
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-7xl mx-auto w-2/3" role="alert">
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
         <!-- <strong class="font-bold">Holy smokes!</strong> -->
         <span class="block sm:inline">{{ session('error_message') }}.</span>
         <!-- <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
@@ -127,7 +127,7 @@
 @endif
 
 @if(session('sucsess_message'))
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative max-w-7xl mx-auto w-2/3" role="alert">
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
         <!-- <strong class="font-bold">Holy smokes!</strong> -->
         <span class="block sm:inline">{{ session('sucsess_message') }}</span>
         <!-- <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
