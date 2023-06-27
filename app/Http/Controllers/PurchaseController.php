@@ -23,24 +23,23 @@ class PurchaseController extends Controller
         $user_id = Auth::user()->id;
         $cart = new Selection();
         $cart->all();
-
-        if($quantity==0) {
-            return back()->with('error_message', '数量を選択してください');
-        }
+        // dd($cart);
 
         if (!$cart->where('product_id', $product->id)->where('user_id', $user_id)->exists()) {
+            // dd($cart);
             $cart->product_id = $product->id;
             $cart->user_id = Auth::user()->id;
             $cart->quantity = $quantity;
             $cart->timestamps = false;
             $cart->save();
         } else {
+            // dd($cart);
             $cart->user_id = Auth::user()->id;
             $cart->timestamps = false;
             $cart->where('product_id', '=',  $product->id)->increment('quantity', $quantity);
         }
 
-        return back()->with('sucsess_message', 'カートに追加しました');
+        return back();
         // $productsInACart = Selection::getProductsInACart();
         // $sum = Selection::getSumInACart();
 
@@ -58,8 +57,10 @@ class PurchaseController extends Controller
     public function removeFromCart(Request $request)
     {
 
+
         Selection::deleteProductFromCart($request);
-    
+
+
         return back();
     }
 

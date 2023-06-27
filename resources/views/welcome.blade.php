@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -848,7 +847,7 @@
                 <form method="GET" action="{{ route('search-product')}}">
                     <!--入力-->
                     <input type="text" class="form-control rounded-md h-6" name="searchWord" placeholder="商品名" value="{{ $searchWord }}">
-                
+
                     <!-- プルダウンカテゴリ選択 -->
                     <select name="categoryId" class="form-control bg-gray rounded-md h-6" value="{{ $categoryId }}">
                         <option value="">すべて</option>
@@ -859,7 +858,7 @@
                         </option>
                         @endforeach
                     </select>
-                        
+
                     <button type="submit" class="btn btn-primary border border-black rounded-md h-6">検索</button>
                 </form>
             </div>
@@ -920,7 +919,7 @@
                 <form method="GET" action="{{ route('search-product')}}">
                     <!--入力-->
                     <input type="text" class="form-control rounded-md h-6" name="searchWord" placeholder="商品名" value="{{ $searchWord }}">
-                
+
                     <!-- プルダウンカテゴリ選択 -->
                     <select name="categoryId" class="form-control bg-gray rounded-md h-6" value="{{ $categoryId }}">
                         <option value="">すべて</option>
@@ -931,10 +930,10 @@
                         </option>
                         @endforeach
                     </select>
-                        
+
                     <button type="submit" class="btn btn-primary border border-black rounded-md h-6">検索</button>
                 </form>
-                
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6 font-sans">
@@ -996,17 +995,19 @@
     <div class="relative md:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
 
 
-        
+
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
 
             <div class="mt-16">
                 <div class="grid grid-cols-4 md:grid-cols-4 gap-6 lg:gap-8">
                     @foreach ($products as $product)
                     <a href="{{ route('product-detail', ['id'=>$product->id]) }}" class="scale-100 p-4 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div class="w-full mb-20"><img src="upload/{{ $product->image }}" class="" ></div>
+                        <div class="w-full mb-20"><img src="upload/{{ $product->image }}" class=""></div>
                         <div class="absolute inset-x-0 bottom-1 text-center">
                             <div class=" border-b-2">{{ $product->name }}</div>
-                            <div class="  border-b-2"><p class="">{{ $product->category_name }}</p></div>
+                            <div class="  border-b-2">
+                                <p class="">{{ $product->category_name }}</p>
+                            </div>
                             <div class=" border-b-2">￥:{{ $product->price }}</div>
                         </div>
                     </a>
