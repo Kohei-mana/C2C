@@ -14,7 +14,7 @@ class AddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'postal_code' => ['string', 'min:8', 'max:8'],
+            'postal_code' => ['regex:/^[0-9]{3}-[0-9]{4}$/', 'min:8', 'max:8'],
             'address' => ['string', 'max:255'],
             'name' => ['string', 'max:255']
         ];
