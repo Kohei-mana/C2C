@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $data = $request->session()->all();
 
@@ -102,6 +102,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('register.sended-email');
+        return view('auth.verify-email');
     }
 }

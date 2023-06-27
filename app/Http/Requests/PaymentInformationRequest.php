@@ -25,7 +25,7 @@ class PaymentInformationRequest extends FormRequest
         return [
             'card_number' => ['required', 'regex:/^[0-9]+$/', 'min:16', 'max:16'],
             'cvv' => ['required', 'regex:/^[0-9]+$/', 'min:3', 'max:3'],
-            'cardholder_name' => ['required', 'regex:/^[a-zA-Z]+$/', 'max:255'],
+            'cardholder_name' => ['required', 'regex:/^[a-zA-Z ]+$/', 'max:255'],
             'expiration_month' => ['required'],
             'expiration_year' => ['required', function ($attribute, $value, $fail) use ($currentDate, $expirationDate) {
                 if ($expirationDate->lessThan($currentDate->endOfMonth())) {

@@ -50,7 +50,7 @@
         <!-- image -->
         <div class="mt-4">
             <x-input-label for="image" :value="__('商品画像')" />
-            <x-text-input id="image" class="block mt-1" type="file" name="image" required autocomplete="image" />
+            <input id="image" class="mt-1" type="file" name="image" required autocomplete="image" />
             <x-input-error :messages="$errors->get('image')" class="mt-2" />
         </div>
 
