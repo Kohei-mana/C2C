@@ -35,13 +35,15 @@ class ShowProductsController extends Controller
 
         $product = Product::getSelectedProduct($id);
 
-        if($product->user_id == Auth::user()->id) {
-            $exhibit_product = Product::getProduct($id);
-            return view('exhibition-product', compact('exhibit_product'));
-        }
-
         //もしログイン状態なら
         $login = Auth::check();
+
+        if($login) {
+            if($product->user_id == Auth::user()->id) {
+                $exhibit_product = Product::getProduct($id);
+                return view('exhibition-product', compact('exhibit_product'));
+            }
+        }
 
         if($login){
             $productInACart = Selection::select('*')->where('product_id', $id)->where('user_id', auth()->user()->id)->first();
