@@ -43,4 +43,17 @@
             </div>
         </div>
     </div>
+    <div style="display: flex; justify-content: center;">
+        <div class="border-t-2 border-r-2 border-l-2 border-black mt-5" style="width: 45%;">
+            <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300 font-semibold'>{{ __('購入者氏名') }}</p>
+            <p class="px-1 py-1 text-center h-8 border-b-2 border-black font-semibold">{{ __('送付先住所') }}</p>
+            @foreach($buyer_addresses as $buyer_address)
+            <div class="border-black h-8">
+                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ $buyer_address->name }}</p>
+                <p class="px-1 py-1 text-center h-8 border-b-2 border-black">〒{{ $buyer_address->postal_code }}　{{ $buyer_address->address }}</p>
+            </div>
+            @endforeach
+        </div>
+    </div>
+
 </x-app-layout>

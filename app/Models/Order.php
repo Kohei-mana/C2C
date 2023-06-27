@@ -11,7 +11,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'sum_quantity', 'sum_price'];
+    protected $fillable = ['user_id', 'sum_quantity', 'sum_price', 'name', 'postal_code', 'address'];
 
     public function user()
     {
@@ -35,6 +35,9 @@ class Order extends Model
                 'user_id' => Auth::id(),
                 'sum_quantity' => $data['sum_quantity'],
                 'sum_price' => $data['sum_price'],
+                'name' => $data['name'],
+                'postal_code' => $data['postal_code'],
+                'address' => $data['address']
             ]);
 
             $order->save();
@@ -64,5 +67,12 @@ class Order extends Model
 
             return $order;
         });
+    }
+
+    public static function getBuyers($id)
+    {
+        return self::whereHas('completions', function ($q) use ($id) {
+            $q->where('product_id', $id);
+        })->get();
     }
 }

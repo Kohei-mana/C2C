@@ -7,13 +7,16 @@
 
     <div style="width: 50%; margin-top: auto; margin-left: auto; margin-right: auto;">
         @foreach($cart as $cart_product)
-        <div class="p-4 mt-2 sm:p-4 bg-white shadow sm:rounded-lg flex">
-            <div class="h-30 w-40"><img class="border h-30 w-40" src="upload/{{$cart_product->image}}"></div>
-            <div class="w-3/5 text-center">{{$cart_product->name}}</div>
-            <div class="w-1/5 text-center">¥{{$cart_product->price}}</div>
-            <div class="w-1/5 text-center">{{$cart_product->quantity}}点</div>
-            <div class="w-1/5 text-center">¥{{ $subtotal = $cart_product->price * $cart_product->quantity }}</div>
+        <div class="p-3 mt-5 sm:p-7 bg-white shadow sm:rounded-lg flex text-2xl font-semibold flex-row items-center justify-center">
+            <img class="border h-30 w-40" src="upload/{{$cart_product->image}}">
+            <div class="ml-6">{{$cart_product->name}}</div>
+            <div class="ml-6">¥{{$cart_product->price}}</div>
+            <div class="ml-6">{{$cart_product->quantity}}点</div>
+            <div class="ml-6">¥{{ $subtotal = $cart_product->price * $cart_product->quantity }}</div>
         </div>
+
+
+
         @endforeach
         <div class="mt-6 text-2xl font-semibold text-gray-600 text-right">
             <div>合計：¥ {{ $sum_price }}</div>
@@ -56,9 +59,14 @@
                 <p class=" py-1 text-center">・・・</p>
             </div>
 
-            <div class="border-black h-8">
-                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('カード名義人') }}</p>
+            <div class="border-b-2 border-black h-8">
+                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-b-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('カード名義人') }}</p>
                 <p class=" py-1 text-center">{{ $cardholder_name }}</p>
+            </div>
+
+            <div class="border-black h-8">
+                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('お届け予定日') }}</p>
+                <p class=" py-1 text-center">{{ date('Y年n月j日', strtotime('+3 days')) }}</p>
             </div>
 
         </div>
