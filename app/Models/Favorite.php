@@ -28,6 +28,7 @@ class Favorite extends Model
         return self::
         join('products', 'favorites.product_id', '=', 'products.id')
         ->where('favorites.user_id', $user_id)
+        ->where('inventory', '>', 0)
         ->get();
     }
 }

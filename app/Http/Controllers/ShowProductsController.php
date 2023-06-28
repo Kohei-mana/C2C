@@ -23,8 +23,6 @@ class ShowProductsController extends Controller
         $products = Product::getShowProducts();
         $categories = Category::getCategories();
 
-        // $exhibit_product = Product::getProduct($id);
-
         $searchWord = $request->searchWord;
         $categoryId = $request->categoryId;
 
@@ -35,7 +33,6 @@ class ShowProductsController extends Controller
     {
 
         $product = Product::getSelectedProduct($id);
-
 
         //もしログイン状態なら
         $login = Auth::check();

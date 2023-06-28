@@ -48,6 +48,9 @@ class PurchaseController extends Controller
     {
         $productsInACart = Selection::getProductsInACart();
         $sum = Selection::getSumInACart();
+        if($sum == 0) {
+            
+        }
 
         return View('shopping-cart', compact('productsInACart', 'sum'));
     }
@@ -57,7 +60,7 @@ class PurchaseController extends Controller
 
         Selection::deleteProductFromCart($request);
     
-        return back();
+        return back()->with('delete_message', 'カートから削除しました。');
     }
 
 

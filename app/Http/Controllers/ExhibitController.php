@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Selection;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -88,6 +89,7 @@ class ExhibitController extends Controller
         Product::updateListingStatus($exhibit_product);
         $buyer_addresses = Order::getBuyers($id);
         Selection::select('*')->where('product_id', $id)->delete();
+        Favorite::select('*')->where('product_id', $id)->delete();
 
         return view('exhibition-product', compact('exhibit_product', 'buyer_addresses'));
     }
