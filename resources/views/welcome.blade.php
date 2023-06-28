@@ -928,14 +928,14 @@
 
                 <x-dropdown aleign="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                    <button class="inline-flex items-center px-1 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <div>{{ Auth::user()->name }}</div>
 
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                        <div class="ml-1">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
                         </button>
                     </x-slot>
 
@@ -978,11 +978,11 @@
 
 
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
-
+        @if(count($products) > 0)
             <div class="mt-16">
                 <div class="grid grid-cols-4 md:grid-cols-4 gap-6 lg:gap-8">
+                    
                     @foreach ($products as $product)
-                        
                         <a href="{{ route('product-detail', ['id'=>$product->id]) }}" class="scale-100 p-4 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                         
                             <div class="w-full mb-20"><img src="upload/{{ $product->image }}" class="" ></div>
@@ -992,13 +992,15 @@
                                 <div class=" border-b-2">￥:{{ $product->price }}</div>
                             </div>
                         </a>
-
-                    @endforeach
-
+                        @endforeach
+                    
                 </div>
             </div>
-
-
+        @else
+            <div class="text-center mt-7 mx-auto font-semibold">
+                <h2>商品が見つかりません。</h2>
+            </div>
+        @endif
 
             <div class="flex justify-center mt-16 px-0 sm:items-center">
 

@@ -18,8 +18,6 @@
                 </div>
             </div>
 
-            
-
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-nav-link :href="route('shopping_cart')" :active="request()->routeIs('shopping_cart')" width="48">
                     {{ __('カート') }}
@@ -28,30 +26,12 @@
                     {{ __('出品') }}
                 </x-nav-link>
 
-                <x-dropdown aleign="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>USER</div>
-
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('register')">
-                            {{ __('新規登録') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <x-dropdown-link :href="route('login')">
-                            {{ __('ログイン') }}
-                        </x-dropdown-link>
-                    </x-slot>
-                </x-dropdown>
+                <x-nav-link :href="route('login')" :active="request()->routeIs('login')" width="48">
+                    {{ __('ログイン') }}
+                </x-nav-link>
+                <x-nav-link :href="route('register')" :active="request()->routeIs('register')" width="48">
+                    {{ __('新規登録') }}
+                </x-nav-link>
             </div>
         </div>
     </div>
@@ -72,8 +52,6 @@
                 </div>
             </div>
 
-            
-
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-nav-link :href="route('shopping_cart')" :active="request()->routeIs('shopping_cart')" width="48">
                     {{ __('カート') }}
@@ -84,7 +62,7 @@
 
                 <x-dropdown aleign="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-1 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
@@ -118,21 +96,25 @@
 
 @if(session('error_message'))
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
-        <!-- <strong class="font-bold">Holy smokes!</strong> -->
         <span class="block sm:inline">{{ session('error_message') }}.</span>
-        <!-- <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-        </span> -->
     </div>
 @endif
 
 @if(session('sucsess_message'))
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
-        <!-- <strong class="font-bold">Holy smokes!</strong> -->
         <span class="block sm:inline">{{ session('sucsess_message') }}</span>
-        <!-- <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-        </span> -->
+    </div>
+@endif
+
+@if(session('add_favorite_message'))
+    <div class="bg-pink-100 border border-pink-400 text-pink-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
+        <span class="block sm:inline">{{ session('add_favorite_message') }}</span>
+    </div>
+@endif
+
+@if(session('remove_favorite_message'))
+    <div class="bg-gray-300 border border-gray-400 text-gray-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
+        <span class="block sm:inline">{{ session('remove_favorite_message') }}</span>
     </div>
 @endif
 

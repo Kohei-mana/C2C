@@ -33,9 +33,9 @@
                 <p class=" py-1 text-center">{{ $inventory }}点</p>
             </div>
 
-            <div class=" border-black h-8">
-                <p class='inline-block w-1/4 font-normal h-8 float-left border-r-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('商品説明') }}</p>
-                <p class=" py-1 text-center">{{ $description }}</p>
+            <div class=" border-black shadow-sm sm:rounded-lg flex shadow sm:rounded-lg">
+                <div class='inline-block w-1/4 font-normal h-auto float-left border-r-2 border-black text-center bg-gray-300'>{{ __('商品説明') }}</div>
+                <div class=" py-1 w-3/4">{{ $description }}</div>
             </div>
 
         </div>

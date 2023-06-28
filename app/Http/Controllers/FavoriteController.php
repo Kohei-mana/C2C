@@ -19,7 +19,7 @@ class FavoriteController extends Controller
         $favorite->user_id=Auth::user()->id;
         $favorite->timestamps = false;
         $favorite->save();
-        return back();
+        return back()->with('add_favorite_message', 'いいねに追加しました。');
 
     }
 
@@ -36,7 +36,7 @@ class FavoriteController extends Controller
             $favorite = null;
         }
 
-        return back();
+        return back()->with('remove_favorite_message', 'いいねから削除しました。');;
     }
 
     public function showFavoriteProducts() {

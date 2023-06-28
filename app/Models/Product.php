@@ -84,8 +84,13 @@ class Product extends Model
 
     public static function getProductsJoinedWithCategory()
     {
-        return self::select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'category_id', 'categories.category_name as category_name')
-            ->join('categories', 'products.category_id', '=', 'categories.id');
+        return self::
+        select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'category_id', 'categories.category_name as category_name')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->where('listing_status', 0)
+        ->where('inventory', '>=', 1)
+        ->orderBy('id', 'desc')
+        ;
     }
 
     public static function getProduct($id)
