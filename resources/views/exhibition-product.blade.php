@@ -18,7 +18,9 @@
                 <div style="font-size: 30px; font-weight: 600;">{{$exhibit_product->name}}</div>
                 <div style="font-size: 20px; font-weight: 600;">
                     <div>¥{{$exhibit_product->price}}</div>
+                    <div>カテゴリー：{{$exhibit_product->category_name}}</div>
                     <div>{{$exhibit_product->inventory}}点</div>
+                    <div>説明：{{$exhibit_product->product_description}}</div>
                     <div>
                         @if ($exhibit_product->listing_status == 0)
                         <div style="color: green;">出品中</div>
@@ -39,6 +41,9 @@
                         </form>
                         @endif
                     </div>
+                    <a href="{{ route('edit-product', ['id'=>$exhibit_product->id]) }}">
+                        <x-secondary-button class="mt-6">{{ __('編集する') }}</x-secondary-button>
+                    </a>
                 </div>
             </div>
         </div>

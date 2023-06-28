@@ -35,6 +35,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/edit-email', [ProfileController::class, 'editEmail'])->name('edit-email');
+    Route::patch('/edit-email', [ProfileController::class, 'updateEmail'])->name('update-email');
+});
 
 Route::middleware('verified')->group(function () {
 
@@ -47,9 +51,6 @@ Route::middleware('verified')->group(function () {
     Route::get('/edit-password', [ProfileController::class, 'editPassword'])->name('edit-password');
     Route::put('/edit-password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
-    Route::get('/edit-email', [ProfileController::class, 'editEmail'])->name('edit-email');
-    Route::patch('/edit-email', [ProfileController::class, 'updateEmail'])->name('update-email');
-
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/favorite', [FavoriteController::class, 'showFavoriteProducts'])->name('favorite');
@@ -57,6 +58,9 @@ Route::middleware('verified')->group(function () {
     Route::get('/listing_history', [ExhibitController::class, 'showAll'])->name('listing_history');
     Route::get('/exhibition-product/{id}', [ExhibitController::class, 'showSpecific'])->name('exhibition-product');
     Route::post('/exhibition-product/{id}', [ExhibitController::class, 'updateListing'])->name('updateListing');
+
+    Route::get('/edit-product/{id}', [ExhibitController::class, 'editProduct'])->name('edit-product');
+    Route::put('/edit-product/{id}', [ExhibitController::class, 'updateProduct'])->name('update-product');
 
     Route::get('/purchase_history', [PurchaseController::class, 'showHistory'])->name('purchase_history');
 
@@ -85,6 +89,7 @@ Route::middleware('verified')->group(function () {
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');
 
+    //購入フロー
     Route::get('/input-shipping-address', [PurchaseController::class, 'inputShippingAddress'])->name('input-shipping-address');
     Route::match(['get', 'post'], '/input-payment-information', [PurchaseController::class, 'inputPaymentInformation'])->name('input-payment-information');
     Route::post('/confirm-purchase', [PurchaseController::class, 'confirm'])->name('confirm-purchase');
