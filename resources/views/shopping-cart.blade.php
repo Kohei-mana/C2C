@@ -29,7 +29,7 @@
         </form>
         @endforeach
     @else
-        <div class="text-center">
+        <div class="text-center mt-7 mx-auto font-semibold">
             <h2>カートは空です。</h2>
         </div>
     @endif
