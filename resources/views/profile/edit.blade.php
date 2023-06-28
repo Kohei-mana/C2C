@@ -10,7 +10,7 @@
         </h2>
     </x-slot>
 
-    <div style="width: 40%; margin-top: 5%; margin-left: auto; margin-right: auto;">
+    <div style="width: 50%; margin-top: 5%; margin-left: auto; margin-right: auto;">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="border-2 border-black">
                 <div class="border-b-2 border-black h-8">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div style="width: 40%; margin-top: 4%; margin-left: auto; margin-right: auto;">
+    <div style="width: 50%; margin-top: 4%; margin-left: auto; margin-right: auto;">
         <div class="mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="flex justify-center">
                 <x-edit-button onclick="location.href='{{ route('edit-email') }}'">{{ __('メールアドレス変更') }}</x-edit-button>

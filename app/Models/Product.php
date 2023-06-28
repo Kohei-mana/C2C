@@ -48,26 +48,38 @@ class Product extends Model
         ]);
     }
 
+    public function updateProduct(array $data)
+    {
+
+        return self::find($data['product_id'])
+            ->update([
+                'name' => $data['product_name'],
+                'image' => $data['image'],
+                'category_id' => $data['category_id'],
+                'price' => $data['price'],
+                'inventory' => $data['inventory'],
+                'product_description' => $data['description'],
+            ]);
+    }
+
     public static function getShowProducts()
     {
         //出品中のすべての商品データを取得
-        return self::
-        select('products.id','user_id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'listing_status', 'categories.category_name as category_name')
-        ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->where('listing_status', 0)
-        ->where('inventory', '>=', 1)
-        ->orderBy('id', 'desc')
-        ->simplePaginate(20);
+        return self::select('products.id', 'user_id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'listing_status', 'categories.category_name as category_name')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('listing_status', 0)
+            ->where('inventory', '>=', 1)
+            ->orderBy('id', 'desc')
+            ->simplePaginate(20);
     }
 
     public static function getSelectedProduct($id)
     {
         //クリックした商品のデータを取得
-        return self::
-        select('products.id', 'products.user_id', 'products.name', 'products.image', 'products.price', 'products.product_description', 'products.inventory','categories.category_name as category_name')
-        ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->where('products.id', $id)
-        ->first();
+        return self::select('products.id', 'products.user_id', 'products.name', 'products.image', 'products.price', 'products.product_description', 'products.inventory', 'products.listing_status', 'products.category_id', 'categories.category_name as category_name')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('products.id', $id)
+            ->first();
     }
 
     public static function getProductsJoinedWithCategory()
@@ -100,12 +112,10 @@ class Product extends Model
         }
 
         $exhibit_product->save();
-
     }
 
     public static function getCartProduct($product_id)
     {
         return self::find($product_id);
-
     }
 }
