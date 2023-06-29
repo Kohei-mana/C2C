@@ -37,7 +37,7 @@
             <div>合計：</div>
             <div>¥{{ $sum }}</div>
         </div>
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end mt-4 pb-4">
             <x-secondary-button class="mt-2" onclick="location.href='{{ Route('home') }}'">買い物を続ける</x-secondary-button>
             @if($sum > 0)
             <x-secondary-button class="ml-4 mt-2" onclick="location.href='{{ Route('input-shipping-address') }}'">購入</x-secondary-button>

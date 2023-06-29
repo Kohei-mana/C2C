@@ -14,19 +14,16 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::create([
-            'category_name' => '服',
+            'category_name' => 'カテゴリA',
         ]);
         Category::create([
-            'category_name' => '本',
+            'category_name' => 'カテゴリB',
         ]);
         Category::create([
-            'category_name' => '家電',
+            'category_name' => 'カテゴリC',
         ]);
         Category::create([
-            'category_name' => '楽器',
-        ]);
-        Category::create([
-            'category_name' => 'パソコン・周辺機器',
+            'category_name' => 'カテゴリD',
         ]);
     }
 }

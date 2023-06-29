@@ -21,9 +21,9 @@
                 <p class=" py-1 text-center">{{ $postal_code }}</p>
             </div>
 
-            <div class="border-black h-8">
-                <p class='inline-block w-1/4 font-normal h-8 w-30 float-left border-r-2 border-black px-1 py-1 text-center bg-gray-300'>{{ __('Address') }}</p>
-                <p class=" py-1 text-center">{{ $address }}</p>
+            <div class="border-black flex">
+                <p class='max-w-7xl mx-auto inline-block w-1/4 font-normal float-left border-r-2 border-black px-1 text-center bg-gray-300'>{{ __('Address') }}</p>
+                <p class=" py-1 text-center w-3/4">{{ $address }}</p>
             </div>
         </div>
 

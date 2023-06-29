@@ -12,7 +12,7 @@
     @if(count($orders) > 0)
         @foreach($orders as $order)
         <div class="mt-7 mx-auto font-semibold" style="width: 35%;">
-            <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-5 pb-4">
 
                 <div class="text-center">購入日時：{{ $order->created_at }}</div>
                 @foreach($completions as $completion)

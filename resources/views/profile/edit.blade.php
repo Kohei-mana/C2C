@@ -45,11 +45,7 @@
                 <span style="margin-right: 30px;"></span>
                 <x-edit-button onclick="location.href='{{ route('edit-address') }}'">{{ __('氏名・住所変更') }}</x-edit-button>
             </div>
-            <div class="sm:p-4 bg-white shadow sm:rounded-lg">
-                <div>
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+            
         </div>
     </div>
 </x-app-layout>

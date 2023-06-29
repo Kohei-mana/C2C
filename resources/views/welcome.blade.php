@@ -943,6 +943,15 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('マイページ') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('favorite')">
+                            {{ __('いいね！一覧') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('listing_history')">
+                            {{ __('出品履歴') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('purchase_history')">
+                            {{ __('購入履歴') }}
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
