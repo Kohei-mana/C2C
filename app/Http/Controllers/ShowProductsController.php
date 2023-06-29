@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Controllers\ExhibitController;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -34,16 +34,7 @@ class ShowProductsController extends Controller
 
         $product = Product::getSelectedProduct($id);
 
-        //もしログイン状態なら
         $login = Auth::check();
-
-        if($login) {
-            if($product->user_id == Auth::user()->id) {
-                $exhibit_product = Product::getProduct($id);
-                $buyer_addresses = Order::getBuyers($id);
-                return view('exhibition-product', compact('exhibit_product','buyer_addresses'));
-            }
-        }
 
         if($login){
             $productInACart = Selection::select('*')->where('product_id', $id)->where('user_id', auth()->user()->id)->first();

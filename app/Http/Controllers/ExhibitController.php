@@ -77,7 +77,7 @@ class ExhibitController extends Controller
         return view('listing_history', compact('exhibit_products'));
     }
 
-    public function showSpecific($id)
+    public static function showSpecific($id)
     {
         $exhibit_product = Product::getSelectedProduct($id);
         $buyer_addresses = Order::getBuyers($id);
