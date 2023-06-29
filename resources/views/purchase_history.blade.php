@@ -18,11 +18,11 @@
                 @foreach($completions as $completion)
                 @if($order->id == $completion->order_id)
                 <div class="scale-100 p-2 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                    <div class="mx-auto" style="display: flex;" align=center>
+                    <div class="mx-auto" style="display: flex;" align=left>
                         <img src="upload/{{$completion->product->image}}" width="100">
-                        <div>
-                            <div>{{$completion->product->name}}</div>
-                            <div>¥{{$completion->product->price}}</div>
+                        <div class="ml-4">
+                            <div class="text-center">{{$completion->product->name}}</div>
+                            <div>価格：¥{{$completion->product->price}}</div>
                             <div>数量：{{$completion->quantity}}点</div>
                             <div>小計：¥{{$completion->price}}</div>
                         </div>
