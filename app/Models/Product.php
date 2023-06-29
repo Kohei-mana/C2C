@@ -51,15 +51,19 @@ class Product extends Model
     public function updateProduct(array $data)
     {
 
-        return self::find($data['product_id'])
-            ->update([
-                'name' => $data['product_name'],
-                'image' => $data['image'],
-                'category_id' => $data['category_id'],
-                'price' => $data['price'],
-                'inventory' => $data['inventory'],
-                'product_description' => $data['description'],
-            ]);
+        $product =  self::find($data['product_id']);
+        $product->name = $data['product_name'];
+        $product->category_id = $data['category_id'];
+        $product->price = $data['price'];
+        $product->inventory = $data['inventory'];
+        $product->product_description = $data['description'];
+        if ($data['image'] !== null) {
+            $product->image = $data['image'];
+        }
+        if ($product->inventory == 0) {
+            $product->listing_status = 1;
+        }
+        $product->save();
     }
 
     public static function getShowProducts()
@@ -84,13 +88,11 @@ class Product extends Model
 
     public static function getProductsJoinedWithCategory()
     {
-        return self::
-        select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'category_id', 'categories.category_name as category_name')
-        ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->where('listing_status', 0)
-        ->where('inventory', '>=', 1)
-        ->orderBy('id', 'desc')
-        ;
+        return self::select('products.id', 'products.name', 'products.image', 'products.price', 'products.inventory', 'category_id', 'categories.category_name as category_name')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('listing_status', 0)
+            ->where('inventory', '>=', 1)
+            ->orderBy('id', 'desc');
     }
 
     public static function getProduct($id)
@@ -118,4 +120,11 @@ class Product extends Model
     {
         return self::find($product_id);
     }
+
+    // public function deleteProduct($request)
+    // {
+    //     $productId = $request->id;
+
+    //     self::find($productId)->delete();
+    // }
 }

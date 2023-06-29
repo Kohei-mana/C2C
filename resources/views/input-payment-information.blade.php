@@ -10,10 +10,11 @@
 
         <!-- Card Number -->
         <div class="mt-10">
-            <x-input-label for="card_number" :value="__('カード番号')" />
-
+            <div class="flex">
+                <x-input-label :value="__('カード番号')" />
+                <x-mandatory-mark />
+            </div>
             <x-text-input id="card_number" class="block mt-1 w-full" type="text" minlength="16" maxlength="16" name="card_number" placeholder="0000000000000000" required />
-
             <x-input-error :messages="$errors->get('card_number')" class="mt-2" />
         </div>
 
@@ -21,8 +22,10 @@
         <div class="mt-4 flex">
             <!-- Expiration Date -->
             <div class="mr-4">
-                <x-input-label for="expiration_date" :value="__('有効期限')" />
-
+                <div class="flex">
+                    <x-input-label :value="__('有効期限')" />
+                    <x-mandatory-mark />
+                </div>
                 <div class="flex">
                     <!-- Month -->
                     <div>
@@ -30,7 +33,6 @@
                             @for ($month = 1; $month <= 12; $month++) <option value="{{ $month }}">{{ sprintf("%02d", $month) }}</option>
                                 @endfor
                         </select>
-
                         <x-input-error :messages="$errors->get('expiration_month')" class="mt-2" />
                     </div>
 
@@ -40,7 +42,6 @@
                             @for ($year = date('Y'); $year <= date('Y') + 10; $year++) <option value="{{ $year }}">{{ $year }}</option>
                                 @endfor
                         </select>
-
                         <x-input-error :messages="$errors->get('expiration_year')" class="mt-2" />
                     </div>
                 </div>
@@ -48,20 +49,22 @@
 
             <!-- CVV -->
             <div>
-                <x-input-label for="cvv" :value="__('CVV')" />
-
+                <div class="flex">
+                    <x-input-label :value="__('CVV')" />
+                    <x-mandatory-mark />
+                </div>
                 <x-text-input id="cvv" class="block mt-1 w-full" type="text" name="cvv" minlength="3" maxlength="3" placeholder="000" required />
-
                 <x-input-error :messages="$errors->get('cvv')" class="mt-2" />
             </div>
         </div>
 
         <!-- Cardholder Name -->
         <div class="mt-4">
-            <x-input-label for="cardholder_name" :value="__('カード名義人')" />
-
+            <div class="flex">
+                <x-input-label :value="__('カード名義人')" />
+                <x-mandatory-mark />
+            </div>
             <x-text-input id="cardholder_name" class="block mt-1 w-full" type="text" name="cardholder_name" placeholder="TARO YAMADA" required autocomplete="off" />
-
             <x-input-error :messages="$errors->get('cardholder_name')" class="mt-2" />
         </div>
 

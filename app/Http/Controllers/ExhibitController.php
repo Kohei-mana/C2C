@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\Exhibit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExhibitRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Order;
@@ -43,7 +44,6 @@ class ExhibitController extends Controller
 
         $data['image'] = $filename;
 
-
         session($data);
 
         return view('confirm-exhibit', $data);
@@ -51,7 +51,6 @@ class ExhibitController extends Controller
 
     public function store(Request $request)
     {
-
         $exhibit_request = new ExhibitRequest();
         $data = $request->session()->all();
         $validator = Validator::make($data, $exhibit_request->rules());
@@ -89,7 +88,12 @@ class ExhibitController extends Controller
     public function updateListing($id)
     {
         $exhibit_product = Product::getSelectedProduct($id);
-        Product::updateListingStatus($exhibit_product);
+        if ($exhibit_product->inventory == 0) {
+            return back()->with('error_message', '在庫がないため、出品再開できません。');
+            Product::updateListingStatus($exhibit_product);
+        } else {
+            Product::updateListingStatus($exhibit_product);
+        }
         $buyer_addresses = Order::getBuyers($id);
         Selection::select('*')->where('product_id', $id)->delete();
         Favorite::select('*')->where('product_id', $id)->delete();
@@ -105,12 +109,30 @@ class ExhibitController extends Controller
     }
 
 
-    public function updateProduct(ExhibitRequest $request)
+    public function updateProduct(ProductUpdateRequest $request)
     {
         $data = $request->all();
+        $file = $request->file('image');
+
+        if ($file !== null) {
+            $filename = $file->getClientOriginalName();
+            $file->move('./upload/', $filename);
+            $data['image'] = $filename;
+        } else {
+            $data['image'] = null;
+        }
+
         $product = new Product();
         $product->updateProduct($data);
 
         return Redirect::route('exhibition-product', ['id' => $data['product_id']]);
     }
+
+    // public function deleteProduct(Request $request)
+    // {
+    //     $product = new Product();
+    //     $product->deleteProduct($request);
+
+    //     return Redirect::route('listing_history');
+    // }
 }

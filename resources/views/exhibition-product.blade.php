@@ -9,6 +9,11 @@
             </div>
         </h2>
     </x-slot>
+    @if(session('error_message'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
+        <span class="block sm:inline">{{ session('error_message') }}.</span>
+    </div>
+    @endif
     <div style="width: 100%; display: flex; justify-content: center; margin-top: 5%;">
         <div style="width: 45%; display: flex; align-items: center; justify-content: space-between; background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
             <div style="flex: 2; padding: 3rem;">
