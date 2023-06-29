@@ -61,6 +61,7 @@ Route::middleware('verified')->group(function () {
 
     Route::get('/edit-product/{id}', [ExhibitController::class, 'editProduct'])->name('edit-product');
     Route::put('/edit-product/{id}', [ExhibitController::class, 'updateProduct'])->name('update-product');
+    Route::delete('/edit-product/{id}', [ExhibitController::class, 'deleteProduct'])->name('delete-product');
 
     Route::get('/purchase_history', [PurchaseController::class, 'showHistory'])->name('purchase_history');
 

@@ -9,6 +9,12 @@
             </div>
         </h2>
     </x-slot>
+
+    @if(session('error_message'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-7xl mx-auto" role="alert">
+        <span class="block sm:inline">{{ session('error_message') }}.</span>
+    </div>
+    @endif
     <div class="">
         <div class="max-w-7xl mx-auto mt-16 sm:px-6 lg:px-8 w-2/3 p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <div class="bg-red overflow-hidden shadow-sm sm:rounded-lg flex p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -26,6 +32,7 @@
                     </div>
 
                     <div class="flex justify-center">
+
                         @if ($exhibit_product->listing_status == 0)
                         <div style="color: green;" class="">出品中</div>
                         @elseif ($exhibit_product->listing_status == 1)

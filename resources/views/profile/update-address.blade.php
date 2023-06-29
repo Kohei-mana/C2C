@@ -10,19 +10,28 @@
             @method('patch')
 
             <div>
-                <x-input-label for="name" :value="__('氏名')" />
+                <div class="flex">
+                    <x-input-label :value="__('氏名')" />
+                    <x-mandatory-mark />
+                </div>
                 <x-text-input id="name" name="name" type="text" class="block mt-1 w-full" required placeholder="(例)山田太郎" value="{{ Auth::user()->name }}" />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
 
             <div>
-                <x-input-label for="postal_code" :value="__('Postal_code')" />
+                <div class="flex">
+                    <x-input-label :value="__('郵便番号')" />
+                    <x-mandatory-mark />
+                </div>
                 <x-text-input id="postal_code" name="postal_code" type="text" class="block mt-1 w-full" required placeholder="(例)000-0000" value="{{ Auth::user()->postal_code }}" />
                 <x-input-error class="mt-2" :messages="$errors->get('postal_code')" />
             </div>
 
             <div>
-                <x-input-label for="address" :value="__('Address')" />
+                <div class="flex">
+                    <x-input-label :value="__('住所')" />
+                    <x-mandatory-mark />
+                </div>
                 <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" required placeholder="(例)東京都渋谷区恵比寿南1-2-11フォーシーズン恵比寿ビル4F" value="{{ Auth::user()->address }}" />
                 <x-input-error class="mt-2" :messages="$errors->get('address')" />
             </div>
