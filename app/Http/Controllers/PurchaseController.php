@@ -13,6 +13,7 @@ use Illuminate\View\View;
 use App\Models\Completion;
 use App\Models\Order;
 use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Client;
 
 class PurchaseController extends Controller
 {
@@ -25,7 +26,7 @@ class PurchaseController extends Controller
         $cart->all();
 
         // カート内数量が在庫数量最大の場合、エラーメッセージを表示
-        if($quantity==0) {
+        if ($quantity == 0) {
             return back()->with('error_message', 'これ以上追加できません');
         }
 
@@ -48,8 +49,7 @@ class PurchaseController extends Controller
     {
         $productsInACart = Selection::getProductsInACart();
         $sum = Selection::getSumInACart();
-        if($sum == 0) {
-            
+        if ($sum == 0) {
         }
 
         return View('shopping-cart', compact('productsInACart', 'sum'));
@@ -59,7 +59,7 @@ class PurchaseController extends Controller
     {
 
         Selection::deleteProductFromCart($request);
-    
+
         return back()->with('delete_message', 'カートから削除しました。');
     }
 
@@ -82,7 +82,7 @@ class PurchaseController extends Controller
         return view('input-payment-information', $data);
     }
 
-    public function confirm(PaymentInformationRequest $request)
+    public function confirm(Request $request) //PaymentInformationRequest $request
     {
         $id = Auth::id();
         $cart = Selection::getCartProducts($id);
@@ -114,7 +114,28 @@ class PurchaseController extends Controller
 
         $data = $request->session()->all();
 
-        return view('confirm-purchase', $data);
+        $base_url = 'https://bpt70mko6e.execute-api.ap-northeast-1.amazonaws.com/prod';
+        $send_path = '/payment-info';
+        $send_url = $base_url . $send_path;
+
+        $client = new Client;
+
+        $params = [
+            'form_params' =>
+            [
+                "curd_number"      => $data["card_number"],
+                "card_expiration_date"           => $data["expiration_year"],
+                "card_holder_name"       => $data["cardholder_name"],
+                "card_cvv"      => $data["cvv"],
+                "order_amount"      => $data["sum_price"],
+                "order_currency"      => "JPY"
+            ],
+        ];
+
+        $response = $client->request("POST", $send_url, $params);
+
+        dd($response);
+        // return view('confirm-purchase'); //$data
     }
 
     public function store(Request $request)
@@ -139,7 +160,7 @@ class PurchaseController extends Controller
     {
         $user_id = Auth::user()->id;
         $orders = Order::select('id', 'sum_quantity', 'sum_price', 'created_at')->where('user_id', '=', $user_id)->orderBy('created_at', 'desc')->get();
-        
+
         $completions = Completion::getPurchaseProducts();
 
         return view('purchase_history', compact('orders', 'completions'));
